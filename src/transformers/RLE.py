@@ -12,15 +12,14 @@ class RLE():
         # open file
         with open(data_path, 'r') as f:
             lines = f.readlines()
-        print(f'Number of lines to encode: {len(lines)}')
+        print(f'Encoding {len(lines)} lines.')
 
         # reset output file
         with open(res_f_name, 'w') as res:
             pass
 
         i = 0  # start index
-        done = False  # end condition
-        while not done:
+        while i < len(lines):
             pairs = 1
             for j in lines[i+1:]:
                 if lines[i] == j:
@@ -35,8 +34,7 @@ class RLE():
             
             # increment counter and break if done
             i += pairs
-            if i >= len(lines):
-                break
+
         # return number of lines
         with open(res_f_name, 'r') as res:
             res_len = len(res.readlines())
@@ -52,7 +50,7 @@ class RLE():
         # open file
         with open(file_path, 'r') as f:
             lines = f.readlines()
-        print(f'Number of lines to decode: {len(lines)}')
+        print(f'Decoding {len(lines)} lines.')
 
         for line in lines:
             elems = line.strip().split(sep=',')

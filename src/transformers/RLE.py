@@ -8,6 +8,10 @@ class RLE():
         """ encoded strings are of type: string, start_idx, end_idx
             where start_idx represents the starting index (starting at 0)
             and end_idx represents the last index, (not to be included in the range)
+
+            Params:
+            - file_path: path of the file to decode
+            - res_f_name: path to the output file
         """
         # open file
         with open(data_path, 'r') as f:
@@ -18,30 +22,33 @@ class RLE():
         with open(res_f_name, 'w') as res:
             pass
 
+        res_str = ''  # we encode everything as a big string
         i = 0  # start index
-        while i < len(lines):
+        data_len = len(lines)
+        while i < data_len:
             pairs = 1
-            for j in lines[i+1:]:
-                if lines[i] == j:
-                    pairs += 1
-                else:
-                    break
+            j = i+1
+            while j < data_len and lines[i] == lines[j]:
+                pairs += 1
+                j += 1
+
+            # add curr data to string
+            res_str += f'{lines[i].strip()}, {i}, {i+pairs}\n'
             
-            # write current res
-            res_str = f'{lines[i].strip()}, {i}, {i+pairs}\n'
-            with open(res_f_name, 'a') as res:
-                res.write(res_str)
-            
-            # increment counter and break if done
+            # increment counter of visited lines
             i += pairs
 
-        # return number of lines
-        with open(res_f_name, 'r') as res:
-            res_len = len(res.readlines())
-        return res_len
+        # write results to file
+        with open(res_f_name, 'a') as res:
+            res.write(res_str)
+
 
 
     def decode(self, file_path, res_f_name):
+        """ Params:
+            - file_path: path of the file to decode
+            - res_f_name: path to the output file
+        """
         
         # reset output file
         with open(res_f_name, 'w') as res:
@@ -52,18 +59,18 @@ class RLE():
             lines = f.readlines()
         print(f'Decoding {len(lines)} lines.')
 
+        res_str = ''  # we encode everything as a big string
         for line in lines:
+            # get elements
             elems = line.strip().split(sep=',')
+            # count occurrences
             reps = int(elems[2]) - int(elems[1])
-            # for _ in range(reps):
-            with open(res_f_name, 'a') as res:
-                res.write((elems[0]+'\n')*reps)
+            
+            res_str += (elems[0]+'\n')*reps
 
-        # read length of output file
-        with open(res_f_name, 'r') as res:
-            res_len = len(res.readlines())
+        with open(res_f_name, 'a') as res:
+            res.write(res_str)
 
-        return res_len
         
 
 

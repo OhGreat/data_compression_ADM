@@ -55,12 +55,14 @@ class RLE():
         for line in lines:
             elems = line.strip().split(sep=',')
             reps = int(elems[2]) - int(elems[1])
-            for i in range(reps):
-                with open(res_f_name, 'a') as res:
-                    res.write(elems[0]+'\n')
+            # for _ in range(reps):
+            with open(res_f_name, 'a') as res:
+                res.write((elems[0]+'\n')*reps)
 
+        # read length of output file
         with open(res_f_name, 'r') as res:
             res_len = len(res.readlines())
+
         return res_len
         
 

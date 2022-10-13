@@ -1,9 +1,9 @@
-class dict_enc():
+class DIC():
     def __init__(self):
         self.name = "dict"
         self.extension = '.dic'
 
-    def encode(self, data_path, res_f_name):
+    def encode(self, file_path, res_dir=''):
         """ encoded strings are of type: string, start_idx, end_idx
             where start_idx represents the starting index (starting at 0)
             and end_idx represents the last index, (not to be included in the range)
@@ -13,9 +13,13 @@ class dict_enc():
             - res_f_name: path + name to the output file
         """
         # open file
-        with open(data_path, 'r') as f:
+        with open(file_path, 'r') as f:
             lines = f.readlines()
         print(f'Encoding {len(lines)} lines.')
+
+        # define output file name
+        res_f_name = res_dir+file_path.split('/')[-1]+self.extension
+        print(res_f_name)
 
         # create keys
         keys = {}
@@ -33,11 +37,13 @@ class dict_enc():
         # write results to file
         with open(res_f_name, 'w') as res:
             for key, item in keys.items():
-                res.write(f"{key.strip()}|{item}\n")
+                res.write(f"{key[:-1]}|{item}\n")
             res.write(idxes)
+        
+        return 0
 
 
-    def decode(self, file_path, res_f_name):
+    def decode(self, file_path, res_dir=''):
         """ Params:
             - file_path: path of the file to decode
             - res_f_name: path + name to the output file
@@ -46,6 +52,9 @@ class dict_enc():
         with open(file_path, 'r') as f:
             lines = f.readlines()
         print(f'Decoding {len(lines)} lines.')
+
+        # define output file name
+        res_f_name = res_dir+'dec_'+file_path.split('/')[-1]
         
         # create dict
         keys = {}

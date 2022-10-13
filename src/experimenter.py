@@ -1,12 +1,11 @@
 import time
-import numpy as np
 from os import makedirs, listdir
 from os.path import exists
-from transformers.RLE import RLE
-from transformers.dict_encoder import *
+from solvers.RLE import RLE
+from solvers.DIC import DIC
 
 
-def single_experiment(transformer, data_path, res_dir=None, 
+def single_experiment(solver, data_path, res_dir=None, 
                         additional_info=None, keep_files=True):
 
     # create results dir if non-existant
@@ -21,12 +20,12 @@ def single_experiment(transformer, data_path, res_dir=None,
     # take name of the dataset
     dataset = data_path.split('/')[-1]
     # generated file names
-    enc_f_name = res_dir+dataset+transformer.extension
-    dec_f_name = res_dir+dataset+"_dec"+transformer.extension
+    enc_f_name = res_dir+dataset+solver.extension
+    dec_f_name = res_dir+"dec_"+dataset+solver.extension
 
     # encode and keep time
     enc_start = time.time()
-    transformer.encode(data_path, enc_f_name)
+    solver.encode(data_path, res_dir)
     enc_end = time.time()
     enc_tot = enc_end - enc_start
     enc_str = f"Encoding time: {enc_tot}"
@@ -34,7 +33,7 @@ def single_experiment(transformer, data_path, res_dir=None,
 
     # decode and keep time
     dec_start = time.time()
-    transformer.decode(enc_f_name, dec_f_name)
+    solver.decode(enc_f_name, res_dir)
     dec_end = time.time()
     dec_tot = dec_end - dec_start
     dec_str = f"Decoding time: {dec_tot}"
@@ -58,15 +57,15 @@ def single_experiment(transformer, data_path, res_dir=None,
         enc_lines = enc.readlines()
     orig_len = len(orig_lines)
     enc_len = len(enc_lines)
-    ratio = np.round(enc_len/orig_len * 100, 2)
-    diff = np.round((1 - enc_len/orig_len) * 100, 2)
+    ratio = round(enc_len/orig_len * 100, 2)
+    diff = round((1 - enc_len/orig_len) * 100, 2)
     ratio_str = f"orig len: {orig_len}, enc len: {enc_len}, ratio: {ratio}%, diff: {diff}%"
     print(ratio_str, "\n")
 
     # TODO (optional): if keep_files is False discard generated files
 
     # create result string
-    res_table = f"{transformer.name}\n{dataset}\n{result_match}\n\n{enc_str}\n{dec_str}\n\n{ratio_str}"
+    res_table = f"{solver.name}\n{dataset}\n{result_match}\n\n{enc_str}\n{dec_str}\n\n{ratio_str}"
     if additional_info is not None:
         res_table += f"\n\nadditional info:{additional_info}"
     # write results to file
@@ -75,21 +74,24 @@ def single_experiment(transformer, data_path, res_dir=None,
     # print(res_table)
 
 
-def bulk_experiment(files_dir, transformer, additional_info='', res_dir='results/'):
+def bulk_experiment(files_dir, solver, additional_info='', res_dir='results/'):
     """ Runs an experiment for each file in the files_dir directory
     """
     files = listdir(files_dir)
     for f in files:
         print("curr:", f)
-        single_experiment(transformer, files_dir+f, res_dir, additional_info)
+        single_experiment(solver, files_dir+f, res_dir, additional_info)
         print()
 
 
 if __name__ == "__main__":
     rle = RLE()
-    dict_ = dict_enc()
+    dict_ = DIC()
+    
+    # csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/l_linenumber-int32.csv'
     csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/'
+
     bulk_experiment(csv_path, dict_, res_dir='results/ubuntu/dict/')
     bulk_experiment(csv_path, rle, res_dir='results/ubuntu/rle/')
-    # single_experiment(rle, csv_path+'l_shipinstruct-string.csv', res_dir='temp_rle/')
-    # single_experiment(transf, csv_path+'l_linenumber-int32.csv', 'temp_dict_enc')
+    # single_experiment(dict_, csv_path+'l_shipinstruct-string.csv', res_dir='temp_rle/')
+    # single_experiment(dict_, csv_path+'l_comment-string.csv', 'temp_dict_enc')

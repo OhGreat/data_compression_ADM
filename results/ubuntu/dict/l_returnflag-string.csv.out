@@ -2,8 +2,8 @@ dict
 l_returnflag-string.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 1.3005993366241455
-Decoding time: 0.9089386463165283
+Encoding time: 1.3194301128387451
+Decoding time: 0.9526410102844238
 
 orig len: 6001215, enc len: 4, ratio: 0.0%, diff: 100.0%
 

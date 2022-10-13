@@ -2,8 +2,8 @@ dict
 l_linenumber-int32.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 1.3409757614135742
-Decoding time: 0.9172790050506592
+Encoding time: 1.3310811519622803
+Decoding time: 0.9517617225646973
 
 orig len: 6001215, enc len: 8, ratio: 0.0%, diff: 100.0%
 

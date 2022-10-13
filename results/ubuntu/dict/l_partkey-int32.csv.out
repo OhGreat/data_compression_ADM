@@ -2,8 +2,8 @@ dict
 l_partkey-int32.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 2.814565896987915
-Decoding time: 2.030194044113159
+Encoding time: 2.679304361343384
+Decoding time: 2.0025980472564697
 
 orig len: 6001215, enc len: 200001, ratio: 3.33%, diff: 96.67%
 

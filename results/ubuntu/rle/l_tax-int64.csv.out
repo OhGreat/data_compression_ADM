@@ -2,8 +2,8 @@ RLE
 l_tax-int64.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 2.728675365447998
-Decoding time: 2.9642653465270996
+Encoding time: 2.649906635284424
+Decoding time: 2.940124273300171
 
 orig len: 6001215, enc len: 5335175, ratio: 88.9%, diff: 11.1%
 

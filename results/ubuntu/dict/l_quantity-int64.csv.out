@@ -2,8 +2,8 @@ dict
 l_quantity-int64.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 1.4477131366729736
-Decoding time: 1.1134154796600342
+Encoding time: 1.3728737831115723
+Decoding time: 1.1535060405731201
 
 orig len: 6001215, enc len: 51, ratio: 0.0%, diff: 100.0%
 

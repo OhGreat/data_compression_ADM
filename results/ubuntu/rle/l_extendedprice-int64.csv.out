@@ -2,8 +2,8 @@ RLE
 l_extendedprice-int64.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 2.983989953994751
-Decoding time: 3.429865837097168
+Encoding time: 2.8868508338928223
+Decoding time: 3.3534886837005615
 
 orig len: 6001215, enc len: 6001213, ratio: 100.0%, diff: 0.0%
 

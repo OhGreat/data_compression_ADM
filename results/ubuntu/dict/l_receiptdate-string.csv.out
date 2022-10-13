@@ -2,8 +2,8 @@ dict
 l_receiptdate-string.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 1.6880619525909424
-Decoding time: 1.4537780284881592
+Encoding time: 1.565277338027954
+Decoding time: 1.7821407318115234
 
 orig len: 6001215, enc len: 2555, ratio: 0.04%, diff: 99.96%
 

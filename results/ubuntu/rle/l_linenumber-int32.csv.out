@@ -2,8 +2,8 @@ RLE
 l_linenumber-int32.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 2.9072234630584717
-Decoding time: 3.196687936782837
+Encoding time: 2.7189760208129883
+Decoding time: 3.0977659225463867
 
 orig len: 6001215, enc len: 5787043, ratio: 96.43%, diff: 3.57%
 

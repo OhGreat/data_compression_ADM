@@ -2,8 +2,8 @@ dict
 l_discount-int8.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 1.3722972869873047
-Decoding time: 0.996882438659668
+Encoding time: 1.3474018573760986
+Decoding time: 0.9757962226867676
 
 orig len: 6001215, enc len: 12, ratio: 0.0%, diff: 100.0%
 

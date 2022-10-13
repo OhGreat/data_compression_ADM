@@ -2,8 +2,8 @@ dict
 l_extendedprice-int32.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 3.8223133087158203
-Decoding time: 2.6974380016326904
+Encoding time: 3.731325387954712
+Decoding time: 2.6106414794921875
 
 orig len: 6001215, enc len: 933901, ratio: 15.56%, diff: 84.44%
 

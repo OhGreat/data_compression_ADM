@@ -2,8 +2,8 @@ RLE
 l_partkey-int32.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 3.1580545902252197
-Decoding time: 3.585010051727295
+Encoding time: 2.9230751991271973
+Decoding time: 3.4045627117156982
 
 orig len: 6001215, enc len: 6001194, ratio: 100.0%, diff: 0.0%
 

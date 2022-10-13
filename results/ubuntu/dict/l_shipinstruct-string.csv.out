@@ -2,8 +2,8 @@ dict
 l_shipinstruct-string.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 1.4806487560272217
-Decoding time: 1.0530142784118652
+Encoding time: 1.4139041900634766
+Decoding time: 1.717982292175293
 
 orig len: 6001215, enc len: 5, ratio: 0.0%, diff: 100.0%
 

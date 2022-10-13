@@ -2,8 +2,8 @@ RLE
 l_suppkey-int32.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 2.4321060180664062
-Decoding time: 3.4420886039733887
+Encoding time: 2.4551937580108643
+Decoding time: 3.4092886447906494
 
 orig len: 6001215, enc len: 6000583, ratio: 99.99%, diff: 0.01%
 

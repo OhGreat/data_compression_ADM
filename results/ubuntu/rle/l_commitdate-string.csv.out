@@ -2,8 +2,8 @@ RLE
 l_commitdate-string.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 2.4518368244171143
-Decoding time: 3.357835531234741
+Encoding time: 2.4527714252471924
+Decoding time: 3.3216681480407715
 
 orig len: 6001215, enc len: 5927001, ratio: 98.76%, diff: 1.24%
 

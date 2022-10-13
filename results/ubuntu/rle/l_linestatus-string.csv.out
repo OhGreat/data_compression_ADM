@@ -2,8 +2,8 @@ RLE
 l_linestatus-string.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 0.883894681930542
-Decoding time: 0.4724709987640381
+Encoding time: 0.8935704231262207
+Decoding time: 0.4797513484954834
 
 orig len: 6001215, enc len: 825665, ratio: 13.76%, diff: 86.24%
 

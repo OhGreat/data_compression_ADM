@@ -3,7 +3,7 @@ class RLE():
         self.name = "RLE"
         self.extension = '.rle'
 
-    def encode(self, data_path, res_f_name):
+    def encode(self, file_path, res_dir=''):
         """ encoded strings are of type: string, start_idx, end_idx
             where start_idx represents the starting index (starting at 0)
             and end_idx represents the last index, (not to be included in the range)
@@ -13,9 +13,13 @@ class RLE():
             - res_f_name: path + name to the output file
         """
         # open file
-        with open(data_path, 'r') as f:
+        with open(file_path, 'r') as f:
             lines = f.readlines()
         print(f'Encoding {len(lines)} lines.')
+
+        # define output file name
+        res_f_name = res_dir+file_path.split('/')[-1]+self.extension
+        
         # we encode everything as a big string
         res_str = ''
         i = 0  # start index
@@ -30,20 +34,26 @@ class RLE():
             res_str += f'{lines[i][:-1]}| {i}| {i+pairs}\n'
             # increment counter of visited lines
             i += pairs
+
         # write results to file
         with open(res_f_name, 'w') as res:
             res.write(res_str)
 
+        return 0
 
-    def decode(self, file_path, res_f_name):
+    def decode(self, file_path, res_dir=''):
         """ Params:
             - file_path: path of the file to decode
-            - res_f_name: path + name to the output file
+            - res_dir: results directory
         """
         # open file
         with open(file_path, 'r') as f:
             lines = f.readlines()
         print(f'Decoding {len(lines)} lines.')
+
+        # define output file name
+        res_f_name = res_dir+'dec_'+file_path.split('/')[-1]
+
         # we encode everything as a big string
         res_str = ''
         for line in lines:
@@ -53,6 +63,7 @@ class RLE():
             reps = int(elems[-1].strip()) - int(elems[-2].strip())
             # append curr results to string
             res_str += (''.join(elems[:-2])+'\n')*reps
+
         # write our results to file
         with open(res_f_name, 'w') as res:
             res.write(res_str)

@@ -1,9 +1,9 @@
 dict
 l_comment-string.csv
-ERROR! Decoded file does not match the original file.
+OK! Decoded file matches the original file.
 
-Encoding time: 4.616116046905518
-Decoding time: 3.744753360748291
+Encoding time: 4.420789957046509
+Decoding time: 3.6584227085113525
 
 orig len: 6001215, enc len: 4580668, ratio: 76.33%, diff: 23.67%
 

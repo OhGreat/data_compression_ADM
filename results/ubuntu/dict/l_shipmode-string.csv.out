@@ -2,8 +2,8 @@ dict
 l_shipmode-string.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 1.4560918807983398
-Decoding time: 0.9919002056121826
+Encoding time: 1.3481910228729248
+Decoding time: 1.0231609344482422
 
 orig len: 6001215, enc len: 8, ratio: 0.0%, diff: 100.0%
 

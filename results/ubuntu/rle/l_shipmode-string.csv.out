@@ -2,8 +2,8 @@ RLE
 l_shipmode-string.csv
 OK! Decoded file matches the original file.
 
-Encoding time: 2.8684184551239014
-Decoding time: 3.067516326904297
+Encoding time: 2.724421262741089
+Decoding time: 2.904109477996826
 
 orig len: 6001215, enc len: 5144586, ratio: 85.73%, diff: 14.27%
 

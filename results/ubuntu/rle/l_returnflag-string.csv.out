@@ -1,0 +1,10 @@
+RLE
+l_returnflag-string.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.3549797534942627
+Decoding time: 1.2305595874786377
+
+orig len: 6001215, enc len: 2099578, ratio: 34.99%, diff: 65.01%
+
+additional info:

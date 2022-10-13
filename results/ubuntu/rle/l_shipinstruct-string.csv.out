@@ -1,0 +1,10 @@
+RLE
+l_shipinstruct-string.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.2241456508636475
+Decoding time: 2.7253754138946533
+
+orig len: 6001215, enc len: 4498733, ratio: 74.96%, diff: 25.04%
+
+additional info:

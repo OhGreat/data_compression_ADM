@@ -1,0 +1,10 @@
+RLE
+l_comment-string.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.658634901046753
+Decoding time: 4.833044528961182
+
+orig len: 6001215, enc len: 6001208, ratio: 100.0%, diff: 0.0%
+
+additional info:

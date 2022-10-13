@@ -1,0 +1,10 @@
+dict
+l_shipdate-string.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.6127369403839111
+Decoding time: 1.398472785949707
+
+orig len: 6001215, enc len: 2527, ratio: 0.04%, diff: 99.96%
+
+additional info:

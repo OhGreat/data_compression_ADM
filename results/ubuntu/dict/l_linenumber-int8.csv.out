@@ -1,0 +1,10 @@
+dict
+l_linenumber-int8.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.3362138271331787
+Decoding time: 0.9176592826843262
+
+orig len: 6001215, enc len: 8, ratio: 0.0%, diff: 100.0%
+
+additional info:

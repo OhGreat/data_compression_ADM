@@ -1,0 +1,10 @@
+dict
+l_orderkey-int32.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.1980502605438232
+Decoding time: 1.8849337100982666
+
+orig len: 6001215, enc len: 1500001, ratio: 24.99%, diff: 75.01%
+
+additional info:

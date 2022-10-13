@@ -1,0 +1,10 @@
+RLE
+l_suppkey-int16.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.4954237937927246
+Decoding time: 3.396503210067749
+
+orig len: 6001215, enc len: 6000583, ratio: 99.99%, diff: 0.01%
+
+additional info:

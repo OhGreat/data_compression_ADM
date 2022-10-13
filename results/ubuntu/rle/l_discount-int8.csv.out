@@ -1,0 +1,10 @@
+RLE
+l_discount-int8.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.3175480365753174
+Decoding time: 3.1899869441986084
+
+orig len: 6001215, enc len: 5455373, ratio: 90.9%, diff: 9.1%
+
+additional info:

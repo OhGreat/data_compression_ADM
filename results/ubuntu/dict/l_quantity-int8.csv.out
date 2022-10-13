@@ -1,0 +1,10 @@
+dict
+l_quantity-int8.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.4315948486328125
+Decoding time: 1.1202380657196045
+
+orig len: 6001215, enc len: 51, ratio: 0.0%, diff: 100.0%
+
+additional info:

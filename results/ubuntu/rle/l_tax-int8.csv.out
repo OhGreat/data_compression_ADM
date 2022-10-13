@@ -1,0 +1,10 @@
+RLE
+l_tax-int8.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.723803758621216
+Decoding time: 2.8906517028808594
+
+orig len: 6001215, enc len: 5335175, ratio: 88.9%, diff: 11.1%
+
+additional info:

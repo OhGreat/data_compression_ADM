@@ -1,0 +1,10 @@
+dict
+l_commitdate-string.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.6210496425628662
+Decoding time: 1.4022092819213867
+
+orig len: 6001215, enc len: 2467, ratio: 0.04%, diff: 99.96%
+
+additional info:

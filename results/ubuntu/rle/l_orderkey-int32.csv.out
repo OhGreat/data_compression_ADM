@@ -1,0 +1,10 @@
+RLE
+l_orderkey-int32.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.1278960704803467
+Decoding time: 0.9184002876281738
+
+orig len: 6001215, enc len: 1500000, ratio: 24.99%, diff: 75.01%
+
+additional info:

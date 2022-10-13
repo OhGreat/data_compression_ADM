@@ -1,0 +1,10 @@
+RLE
+l_shipdate-string.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 3.074554681777954
+Decoding time: 3.4874842166900635
+
+orig len: 6001215, enc len: 5963651, ratio: 99.37%, diff: 0.63%
+
+additional info:

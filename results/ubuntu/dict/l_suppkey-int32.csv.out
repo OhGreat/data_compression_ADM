@@ -1,0 +1,10 @@
+dict
+l_suppkey-int32.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.7623772621154785
+Decoding time: 1.505293846130371
+
+orig len: 6001215, enc len: 10001, ratio: 0.17%, diff: 99.83%
+
+additional info:

@@ -1,0 +1,10 @@
+dict
+l_discount-int64.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 1.4133412837982178
+Decoding time: 1.010296106338501
+
+orig len: 6001215, enc len: 12, ratio: 0.0%, diff: 100.0%
+
+additional info:

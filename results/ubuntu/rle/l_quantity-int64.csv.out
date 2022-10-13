@@ -1,0 +1,10 @@
+RLE
+l_quantity-int64.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.520400285720825
+Decoding time: 3.2572576999664307
+
+orig len: 6001215, enc len: 5880997, ratio: 98.0%, diff: 2.0%
+
+additional info:

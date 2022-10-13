@@ -7,7 +7,7 @@ from solvers.RLE import *
 def main(argv):
     # control argument correctness
     if len(argv) < 4:
-        exit("Not all arguments were specified. Please specify 'function', 'compression', 'data type' and 'path to data'")
+        exit("Not all arguments were specified. Please specify 'function', 'compression', 'data type' and 'path to data' args.")
     # argv[0]
     fun = ['en', 'de']
     if argv[0] not in fun:
@@ -20,10 +20,9 @@ def main(argv):
     dtypes = ['int8', 'int16', 'int32', 'int64', 'string']
     if argv[2] not in dtypes:
         exit("Argument 2 should be one between: 'int8', 'int16', 'int32', 'int64', 'string'")
-    
     # argv[3] is the path with the data file
 
-    # check if result folder is defined
+    # check if results folder exists
     if len(argv) > 4:
         res_dir = argv[4]
     else: res_dir=''
@@ -32,6 +31,7 @@ def main(argv):
     if res_dir[-1] != '/':
         res_dir += '/'
 
+    # encode/decode
     solver = solvers[argv[1]]
     if argv[0] == 'en':
         ret = solver.encode(argv[3], res_dir)

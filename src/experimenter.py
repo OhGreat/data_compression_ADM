@@ -1,5 +1,5 @@
 import time
-from os import makedirs, listdir
+from os import makedirs, listdir, remove
 from os.path import exists
 from solvers.RLE import RLE
 from solvers.DIC import DIC
@@ -62,7 +62,10 @@ def single_experiment(solver, data_path, res_dir=None,
     ratio_str = f"orig len: {orig_len}, enc len: {enc_len}, ratio: {ratio}%, diff: {diff}%"
     print(ratio_str, "\n")
 
-    # TODO (optional): if keep_files is False discard generated files
+    # if keep_files is False discard generated files
+    if not keep_files:
+        remove(enc_f_name)
+        remove(dec_f_name)
 
     # create result string
     res_table = f"{solver.name}\n{dataset}\n{result_match}\n\n{enc_str}\n{dec_str}\n\n{ratio_str}"
@@ -74,7 +77,7 @@ def single_experiment(solver, data_path, res_dir=None,
     # print(res_table)
 
 
-def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/'):
+def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', keep_files=True):
     """ Runs an experiment for each file in the files_dir directory
     """
     if res_dir[-1] != '/':
@@ -84,7 +87,7 @@ def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/'):
     for solver in solvers:
         for f in files:
             print("curr:", f)
-            single_experiment(solver, files_dir+f, res_dir+solver.name, additional_info)
+            single_experiment(solver, files_dir+f, res_dir+solver.name, additional_info, keep_files=keep_files)
             print()
 
 
@@ -96,6 +99,5 @@ if __name__ == "__main__":
     # csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/l_linenumber-int32.csv'
     csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/'
 
-    bulk_experiment(csv_path, solvers, res_dir='results/temp/')
-    # single_experiment(dict_, csv_path+'l_shipinstruct-string.csv', res_dir='temp_rle/')
-    # single_experiment(dict_, csv_path+'l_comment-string.csv', 'temp_dict_enc')
+    bulk_experiment(csv_path, solvers, res_dir='results/temp/', keep_files=False)
+    # single_experiment(dict_, csv_path+'l_shipinstruct-string.csv', res_dir='temp_dict/', keep_files=False)

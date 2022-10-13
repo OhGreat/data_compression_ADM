@@ -36,19 +36,20 @@ where:
 
 To run a bulk experiment for various solvers and datasets, the function *bulk_experiment* can be used as follows:
 ``` python 
-bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/')
+bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', keep_files=True)
 ```
 where:
 - files_dir: (str) directory containing all the files to experiment with.
 - solvers: (list) list of methods to use for encoding/decoding
 - additional_info: (str) additional information to be logged with each experiment
 - res_dir: (str) directory to save results
+- keep_files: when set to False the generated files of the experiment will be discarded.
 
 Example calls of the above functions can be found at the end of the *src/experimenter.py* file.
 
 
 ### Implementing new methods
-All encoders/decoders can be found under the `src/solvers` directory. A template of the structure can be found in the *template.py* file. In general the rules that each new method needs to follow to work properly are the following:
+All encoders/decoders can be found under the `src/solvers` directory. A template of the structure can be found in the *ExampleEncoderDecoder.py* file. In general the rules that each new method needs to follow to work properly are the following:
 - *self.name* and *self.extension* values must be defined.
 - *encode* and *decode* methods must be defined.
 - the *decode* method must return the plain decoded text, while *encode* should return 0.

@@ -1,7 +1,7 @@
-class RLE():
+class dict_enc():
     def __init__(self):
-        self.name = "RLE"
-        self.extension = '.rle'
+        self.name = "dict"
+        self.extension = '.dic'
 
     def encode(self, data_path, res_f_name):
         """ encoded strings are of type: string, start_idx, end_idx
@@ -16,23 +16,25 @@ class RLE():
         with open(data_path, 'r') as f:
             lines = f.readlines()
         print(f'Encoding {len(lines)} lines.')
-        # we encode everything as a big string
-        res_str = ''
-        i = 0  # start index
-        data_len = len(lines)
-        while i < data_len:
-            pairs = 1
-            j = i+1
-            while j < data_len and lines[i] == lines[j]:
-                pairs += 1
-                j += 1
-            # add curr data to string (and remove newline [:-1])
-            res_str += f'{lines[i][:-1]}| {i}| {i+pairs}\n'
-            # increment counter of visited lines
-            i += pairs
+
+        # create keys
+        keys = {}
+        counter = 0
+        for line in lines:
+            if line not in keys:
+                keys[line] = counter
+                counter += 1
+
+        # create array of dictionary keys
+        idxes = ''
+        for line in lines:
+            idxes+=str(keys[line])+','
+
         # write results to file
         with open(res_f_name, 'w') as res:
-            res.write(res_str)
+            for key, item in keys.items():
+                res.write(f"{key.strip()}|{item}\n")
+            res.write(idxes)
 
 
     def decode(self, file_path, res_f_name):
@@ -44,15 +46,25 @@ class RLE():
         with open(file_path, 'r') as f:
             lines = f.readlines()
         print(f'Decoding {len(lines)} lines.')
-        # we encode everything as a big string
+        
+        # create dict
+        keys = {}
+        for line in lines[:-1]:
+            elem = line.split('|')
+            item = ''.join(elem[:-1])
+            key = int(elem[-1])
+            if key not in keys:
+                keys[key] = item
+        
+        # create my idxes
+        idxes = lines[-1].strip().split(',')
+        idxes = [int(i) for i in idxes[:-1]]
+        
+        # create output string
         res_str = ''
-        for line in lines:
-            # get elements
-            elems = line.split(sep='|')
-            # count occurrences
-            reps = int(elems[-1].strip()) - int(elems[-2].strip())
-            # append curr results to string
-            res_str += (''.join(elems[:-2])+'\n')*reps
+        for i in idxes:
+            res_str += keys[i]+'\n'
+
         # write our results to file
         with open(res_f_name, 'w') as res:
             res.write(res_str)

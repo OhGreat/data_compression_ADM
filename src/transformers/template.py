@@ -21,4 +21,4 @@ class ExampleEncoderDecoder():
             - file_path: path of the file to decode
             - res_f_name: path to the output file
         """
-        pass
+        return "Should return decoded file"

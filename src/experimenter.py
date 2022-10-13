@@ -74,24 +74,28 @@ def single_experiment(solver, data_path, res_dir=None,
     # print(res_table)
 
 
-def bulk_experiment(files_dir, solver, additional_info='', res_dir='results/'):
+def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/'):
     """ Runs an experiment for each file in the files_dir directory
     """
+    if res_dir[-1] != '/':
+        res_dir += '/'
+
     files = listdir(files_dir)
-    for f in files:
-        print("curr:", f)
-        single_experiment(solver, files_dir+f, res_dir, additional_info)
-        print()
+    for solver in solvers:
+        for f in files:
+            print("curr:", f)
+            single_experiment(solver, files_dir+f, res_dir+solver.name, additional_info)
+            print()
 
 
 if __name__ == "__main__":
     rle = RLE()
     dict_ = DIC()
+    solvers = [RLE(), DIC()]
     
     # csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/l_linenumber-int32.csv'
     csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/'
 
-    bulk_experiment(csv_path, dict_, res_dir='results/ubuntu/dict/')
-    bulk_experiment(csv_path, rle, res_dir='results/ubuntu/rle/')
+    bulk_experiment(csv_path, solvers, res_dir='results/temp/')
     # single_experiment(dict_, csv_path+'l_shipinstruct-string.csv', res_dir='temp_rle/')
     # single_experiment(dict_, csv_path+'l_comment-string.csv', 'temp_dict_enc')

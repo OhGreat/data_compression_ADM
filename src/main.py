@@ -1,5 +1,6 @@
-import argparse
 import sys
+from os import makedirs
+from os.path import exists
 from solvers.DIC import *
 from solvers.RLE import *
 
@@ -22,11 +23,20 @@ def main(argv):
     
     # argv[3] is the path with the data file
 
+    # check if result folder is defined
+    if len(argv) > 4:
+        res_dir = argv[4]
+    else: res_dir=''
+    if not exists(res_dir):
+        makedirs(res_dir)
+    if res_dir[-1] != '/':
+        res_dir += '/'
+
     solver = solvers[argv[1]]
     if argv[0] == 'en':
-        ret = solver.encode(argv[3])
+        ret = solver.encode(argv[3], res_dir)
     elif argv[0] == 'de':
-        ret = solver.decode(argv[3])
+        ret = solver.decode(argv[3], res_dir)
 
     return ret
 

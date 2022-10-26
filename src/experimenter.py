@@ -54,9 +54,13 @@ def single_experiment(solver, data_path, res_dir=None,
         print(result_match)
         print("Decoded:",len(dec_lines), "lines.")
 
-    # keep track of compression rations
-    with open(enc_f_name, 'r') as enc:
-        enc_lines = enc.readlines()
+    if solver.name == 'bin':
+        with open(enc_f_name, 'rb') as enc:
+            enc_lines = enc.readlines()
+    else:
+        # keep track of compression rations
+        with open(enc_f_name, 'r') as enc:
+            enc_lines = enc.readlines()
     orig_len = len(orig_lines)
     enc_len = len(enc_lines)
     len_ratio = round(enc_len/orig_len * 100, 2)
@@ -118,7 +122,7 @@ if __name__ == "__main__":
     # Generic experiment
     solvers = [RLE(), DIC(), BIN(), FOR()]
     bulk_experiment(csv_path, solvers, res_dir='results/temp/', keep_files=False, data_type='int64')
-    # single_experiment(bin, csv_path+'l_discount-int8.csv', res_dir='temp_dict/', keep_files=False, data_type='int8')
+    # single_experiment(bin, csv_path+'l_extendedprice-int64.csv', res_dir='temp_dict/', keep_files=False, data_type='int64')
     
 
     # FOR experimentation

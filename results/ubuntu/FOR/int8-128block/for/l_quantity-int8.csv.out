@@ -1,0 +1,11 @@
+for
+l_quantity-int8.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.855558395385742
+Decoding time: 2.1352100372314453
+
+orig len: 6001215, enc len: 6048100, ratio: 100.78%, diff: -0.78%
+orig chars: 16924405, enc chars: 16888384, ratio: 99.79%, diff: 0.21%
+
+additional info:block_size

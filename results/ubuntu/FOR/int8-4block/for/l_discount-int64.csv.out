@@ -1,0 +1,11 @@
+for
+l_discount-int64.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.5048680305480957
+Decoding time: 1.9079127311706543
+
+orig len: 6001215, enc len: 6024658, ratio: 100.39%, diff: -0.39%
+orig chars: 12548245, enc chars: 12595131, ratio: 100.37%, diff: -0.37%
+
+additional info:

@@ -1,0 +1,11 @@
+for
+l_suppkey-int32.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.7571067810058594
+Decoding time: 2.1090304851531982
+
+orig len: 6001215, enc len: 6024658, ratio: 100.39%, diff: -0.39%
+orig chars: 29341797, enc chars: 29336861, ratio: 99.98%, diff: 0.02%
+
+additional info:

@@ -1,0 +1,11 @@
+for
+l_tax-int8.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.5251591205596924
+Decoding time: 1.9454970359802246
+
+orig len: 6001215, enc len: 6048100, ratio: 100.78%, diff: -0.78%
+orig chars: 12002430, enc chars: 12096200, ratio: 100.78%, diff: -0.78%
+
+additional info:block_size

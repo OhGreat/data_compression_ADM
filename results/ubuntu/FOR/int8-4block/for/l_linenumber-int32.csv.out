@@ -1,0 +1,11 @@
+for
+l_linenumber-int32.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.4454565048217773
+Decoding time: 1.9704816341400146
+
+orig len: 6001215, enc len: 6024658, ratio: 100.39%, diff: -0.39%
+orig chars: 12002430, enc chars: 12049316, ratio: 100.39%, diff: -0.39%
+
+additional info:

@@ -49,9 +49,9 @@ Example calls of the above functions can be found at the end of the *src/experim
 
 
 ### Implementing new methods
-All encoders/decoders can be found under the `src/solvers` directory. A template of the structure can be found in the *ExampleEncoderDecoder.py* file. In general the rules that each new method needs to follow to work properly are the following:
+All encoders/decoders can be found under the `src/solvers` directory. A template of the structure can be found in the *ExampleEncoderDecoder.py* file. Each new method needs to meet the following requirements to work properly:
 - *self.name* and *self.extension* values must be defined.
 - *encode* and *decode* methods must be defined.
 - the *decode* method must return the plain decoded text, while *encode* should return 0.
 
-Once a new solver has been implemented, it can be added in line 16 of the *src/main.py* file to be usable.
+Once a new solver has been implemented, it can be imported and added in line 19 of the *src/main.py* file to be usable. For the experimenter file just import it in the beginning of the file.

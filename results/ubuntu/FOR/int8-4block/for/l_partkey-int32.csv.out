@@ -1,0 +1,11 @@
+for
+l_partkey-int32.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.90678334236145
+Decoding time: 2.2744388580322266
+
+orig len: 6001215, enc len: 6024658, ratio: 100.39%, diff: -0.39%
+orig chars: 38675408, enc chars: 38654535, ratio: 99.95%, diff: 0.05%
+
+additional info:

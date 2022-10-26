@@ -57,4 +57,6 @@ class BIN():
         file_in.close()
         file_out.close()
 
-        return 0
+        with open(file_out_path, 'r') as f:
+            lines = f.readlines()
+            return lines

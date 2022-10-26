@@ -1,0 +1,11 @@
+for
+l_extendedprice-int32.csv
+OK! Decoded file matches the original file.
+
+Encoding time: 2.900122880935669
+Decoding time: 2.260371685028076
+
+orig len: 6001215, enc len: 6024658, ratio: 100.39%, diff: -0.39%
+orig chars: 47237224, enc chars: 47064661, ratio: 99.63%, diff: 0.37%
+
+additional info:

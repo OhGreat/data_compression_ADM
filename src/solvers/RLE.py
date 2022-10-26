@@ -3,7 +3,7 @@ class RLE():
         self.name = "RLE"
         self.extension = '.rle'
 
-    def encode(self, file_path, res_dir=''):
+    def encode(self, file_path, data_type='int8', res_dir=''):
         """ encoded strings are of type: string, start_idx, end_idx
             where start_idx represents the starting index (starting at 0)
             and end_idx represents the last index, (not to be included in the range)
@@ -41,7 +41,7 @@ class RLE():
 
         return 0
 
-    def decode(self, file_path, res_dir=''):
+    def decode(self, file_path, data_type='int8', res_dir=''):
         """ Params:
             - file_path: path of the file to decode
             - res_dir: results directory

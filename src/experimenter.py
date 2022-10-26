@@ -3,10 +3,11 @@ from os import makedirs, listdir, remove
 from os.path import exists
 from solvers.RLE import RLE
 from solvers.DIC import DIC
+from solvers.BIN import BIN
 
 
 def single_experiment(solver, data_path, res_dir=None, 
-                        additional_info=None, keep_files=True):
+                        additional_info=None, keep_files=True, data_type='int8'):
 
     # create results dir if non-existant
     if res_dir is None:
@@ -25,7 +26,7 @@ def single_experiment(solver, data_path, res_dir=None,
 
     # encode and keep time
     enc_start = time.time()
-    solver.encode(data_path, res_dir)
+    solver.encode(data_path, data_type, res_dir)
     enc_end = time.time()
     enc_tot = enc_end - enc_start
     enc_str = f"Encoding time: {enc_tot}"
@@ -33,7 +34,7 @@ def single_experiment(solver, data_path, res_dir=None,
 
     # decode and keep time
     dec_start = time.time()
-    solver.decode(enc_f_name, res_dir)
+    solver.decode(enc_f_name, data_type, res_dir)
     dec_end = time.time()
     dec_tot = dec_end - dec_start
     dec_str = f"Decoding time: {dec_tot}"
@@ -77,7 +78,7 @@ def single_experiment(solver, data_path, res_dir=None,
     # print(res_table)
 
 
-def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', keep_files=True):
+def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', keep_files=True, data_type='int8'):
     """ Runs an experiment for each file in the files_dir directory
     """
     if res_dir[-1] != '/':
@@ -87,17 +88,18 @@ def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', 
     for solver in solvers:
         for f in files:
             print("curr:", f)
-            single_experiment(solver, files_dir+f, res_dir+solver.name, additional_info, keep_files=keep_files)
+            single_experiment(solver, files_dir+f, res_dir+solver.name, additional_info, keep_files=keep_files, data_type='int8')
             print()
 
 
 if __name__ == "__main__":
     rle = RLE()
     dict_ = DIC()
-    solvers = [RLE(), DIC()]
+    bin = BIN()
+    solvers = [RLE(), DIC(), BIN()]
     
     # csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/l_linenumber-int32.csv'
     csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/'
 
-    bulk_experiment(csv_path, solvers, res_dir='results/temp/', keep_files=False)
-    # single_experiment(dict_, csv_path+'l_shipinstruct-string.csv', res_dir='temp_dict/', keep_files=False)
+    # bulk_experiment(csv_path, solvers, res_dir='results/temp/', keep_files=False)
+    single_experiment(bin, csv_path+'l_discount-int8.csv', res_dir='temp_dict/', keep_files=False, data_type='int8')

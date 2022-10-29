@@ -49,7 +49,7 @@ class RLE():
         # open file
         with open(file_path, 'r') as f:
             lines = f.readlines()
-        print(f'Decoding {len(lines)} lines.')
+        # print(f'Decoding {len(lines)} lines.')
 
         # define output file name
         res_f_name = res_dir+'dec_'+file_path.split('/')[-1]

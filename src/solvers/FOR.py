@@ -57,7 +57,7 @@ class FOR():
         with open(file_path, 'r') as f:
             lines = f.readlines()
             len_lines = len(lines)
-        print(f'Decoding {len_lines} lines.')
+        # print(f'Decoding {len_lines} lines.')
 
         # define output file name
         res_f_name = res_dir+'dec_'+file_path.split('/')[-1]

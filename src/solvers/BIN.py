@@ -59,4 +59,4 @@ class BIN():
 
         with open(file_out_path, 'r') as f:
             lines = f.readlines()
-            return lines
+            return ''.join(lines)

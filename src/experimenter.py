@@ -103,7 +103,7 @@ def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', 
             if data_type in f:
                 print("Curr solver:", solver.name, "curr file:", f)
                 single_experiment(solver, files_dir+f, res_dir+solver.name, additional_info, 
-                                    keep_files=keep_files, data_type='int8', **kwargs)
+                                    keep_files=keep_files, data_type=data_type, **kwargs)
                 print()
 
 

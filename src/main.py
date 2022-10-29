@@ -5,6 +5,7 @@ from solvers.DIC import *
 from solvers.RLE import *
 from solvers.BIN import *
 from solvers.FOR import FOR
+from solvers.DIF import DIF
 
 
 def main(argv):
@@ -16,7 +17,7 @@ def main(argv):
     if argv[0] not in fun:
         exit("Argument 0 should be either 'en' or 'de'")
     # argv[1]
-    solvers = {'rle': RLE(), 'dic': DIC(), 'bin': BIN(), 'for': FOR()}
+    solvers = {'rle': RLE(), 'dic': DIC(), 'bin': BIN(), 'for': FOR(), 'dif': DIF()}
     if argv[1] not in solvers.keys():
         exit("Argument 1 should be one between: 'bin', 'rle', 'dic', 'for', 'diff' ")
     # argv[2]

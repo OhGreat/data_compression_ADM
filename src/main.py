@@ -31,7 +31,7 @@ def main(argv):
     if len(argv) > 4:
         res_dir = argv[4]
     else:
-        res_dir = ''
+        res_dir = 'results/temp'
     if not exists(res_dir):
         makedirs(res_dir)
     if res_dir[-1] != '/':
@@ -40,9 +40,9 @@ def main(argv):
     # encode/decode
     solver = solvers[argv[1]]
     if argv[0] == 'en':
-        ret = solver.encode(argv[3], res_dir)
+        ret = solver.encode(argv[3], argv[2], res_dir)
     elif argv[0] == 'de':
-        ret = solver.decode(argv[3], res_dir)
+        ret = solver.decode(argv[3], argv[2], res_dir)
 
     return ret
 

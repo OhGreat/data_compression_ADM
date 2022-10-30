@@ -1,3 +1,4 @@
+import readline
 from solvers.encoder_decoder import EncoderDecoder
 import numpy as np
 
@@ -5,18 +6,13 @@ class RLE(EncoderDecoder):
     def __init__(self, data_type: str) -> None:
         super().__init__("RLE", '.rle', data_type)
         
-        
     def encode(self, file_path, res_dir=''):
-        """ encoded strings are of type: string, start_idx, end_idx
-            where start_idx represents the starting index (starting at 0)
-            and end_idx represents the last index, (not to be included in the range)
-
-            Params:
-            - file_path: path of the file to encode
-            - res_f_name: path + name to the output file
-        """
         
-        lines = np.fromfile(file_path, dtype=self.data_type, sep='\n')
+        if self.data_type == 'string':
+            with open(file_path, 'r') as f:
+                lines = f.readlines()
+        else:
+            lines = np.fromfile(file_path, dtype=self.data_type, sep='\n')
         
         print(f'Encoding {len(lines)} lines.')
         max_length = np.log2(len(lines))
@@ -34,9 +30,9 @@ class RLE(EncoderDecoder):
                 run_length += 1
                 j += 1
             
+            bytes_to_write = lines[i][:-1].encode('utf-8') if self.data_type == 'string' else self.byte(int(lines[i]))
             file_out.write(
-                self.byte(int(lines[i])) + \
-                    self.byte(int(run_length), run_length_bytes)
+                bytes_to_write + self.byte(int(run_length), run_length_bytes) +b'\n'
             )
             
             i += run_length
@@ -54,13 +50,28 @@ class RLE(EncoderDecoder):
         byte = file_in.read(1)
         run_length_bytes = self.number(byte)
         data = ''
-        number_bytes = file_in.read(self.byte_len)
-        while number_bytes:
-            number = self.number(number_bytes)
-            reps_byte = file_in.read(run_length_bytes)
-            reps = self.number(reps_byte)
-            data += (str(number)+'\n')*reps
-            file_out.write((str(number)+'\n')*reps)
-            number_bytes = file_in.read(self.byte_len)
+        if self.data_type == 'string':
+            data_bytes = file_in.readline()[:-1]
+        else:
+            data_bytes = file_in.read(self.byte_len)
+            
+        while data_bytes:
+            if self.data_type == 'string':
+                read_data = data_bytes[:-run_length_bytes].decode('utf-8')
+                reps_bytes = data_bytes[-run_length_bytes:]
+                reps = self.number(reps_bytes)
+            else:
+                read_data = self.number(data_bytes)
+                reps_byte = file_in.read(run_length_bytes)
+                reps = self.number(reps_byte)
+            # read_data = data_bytes.decode('utf-8') if self.data_type == 'string' else self.number(data_bytes)
+            # read_data =
+            # print(read_data)
+            data += (str(read_data)+'\n')*reps
+            file_out.write((str(read_data)+'\n')*reps)
+            if self.data_type == 'string':
+                data_bytes = file_in.readline()[:-1]
+            else:
+                data_bytes = file_in.read(self.byte_len)
             
         return data

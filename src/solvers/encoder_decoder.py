@@ -23,13 +23,15 @@ class EncoderDecoder():
   def get_byte_length(self, data_type):
     ''' returns bytes needed to store each type'''
     if data_type == 'int8':
-        return 1
+      return 1
     elif data_type == 'int16':
-        return 2
+      return 2
     elif data_type == 'int32':
-        return 4
+      return 4
     elif data_type == 'int64':
-        return 8
+      return 8
+    elif data_type == 'string':
+      return 1
       
   def min_bytes_for(self, number):
     return int(np.ceil(

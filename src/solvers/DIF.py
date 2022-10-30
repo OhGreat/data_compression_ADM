@@ -1,5 +1,3 @@
-from base64 import encode
-import math
 import numpy as np
 
 # Local import
@@ -7,8 +5,8 @@ from solvers.encoder_decoder import EncoderDecoder
 
 
 class DIF(EncoderDecoder):
-  def __init__(self, name='DIF', extension='.dif') -> None:
-    super().__init__(name, extension)
+  def __init__(self, data_type) -> None:
+    super().__init__(data_type, 'DIF', '.dif')
 
   def encode(self, file_path, data_type='int8', res_dir='', **kwargs):
     '''

@@ -1,5 +1,5 @@
 class BIN():
-    def __init__(self):
+    def __init__(self, data_type):
         self.name = "BIN"
         self.extension = '.bin'
 

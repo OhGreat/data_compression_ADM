@@ -1,9 +1,12 @@
-class RLE():
-    def __init__(self):
-        self.name = "RLE"
-        self.extension = '.rle'
+from solvers.encoder_decoder import EncoderDecoder
+import numpy as np
 
-    def encode(self, file_path, data_type='int8', res_dir=''):
+class RLE(EncoderDecoder):
+    def __init__(self, data_type: str) -> None:
+        super().__init__("RLE", '.rle', data_type)
+        
+        
+    def encode(self, file_path, res_dir=''):
         """ encoded strings are of type: string, start_idx, end_idx
             where start_idx represents the starting index (starting at 0)
             and end_idx represents the last index, (not to be included in the range)
@@ -12,60 +15,46 @@ class RLE():
             - file_path: path of the file to encode
             - res_f_name: path + name to the output file
         """
-        # open file
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-        print(f'Encoding {len(lines)} lines.')
-
-        # define output file name
-        res_f_name = res_dir+file_path.split('/')[-1]+self.extension
         
-        # we encode everything as a big string
-        res_str = ''
-        i = 0  # start index
+        lines = np.fromfile(f, dtype=self.data_type, sep='\n')
+        max_diff = np.max(lines) - np.min(lines)
+        
+        print(f'Encoding {len(lines)} lines.')
+        file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
+
+        i = 0
         data_len = len(lines)
         while i < data_len:
-            pairs = 1
+            run_length = 1
             j = i+1
             while j < data_len and lines[i] == lines[j]:
-                pairs += 1
+                run_length += 1
                 j += 1
-            # add curr data to string (and remove newline [:-1])
-            res_str += f'{lines[i][:-1]}|{i}|{i+pairs}\n'
-            # increment counter of visited lines
-            i += pairs
-
-        # write results to file
-        with open(res_f_name, 'w') as res:
-            res.write(res_str)
-
+            
+            file_out.write(
+                self.byte(int(lines[i][:-1])) + self.byte(int(run_length))
+            )
+            
+            i += run_length
         return 0
 
-    def decode(self, file_path, data_type='int8', res_dir=''):
+    def decode(self, file_path, res_dir=''):
         """ Params:
             - file_path: path of the file to decode
             - res_dir: results directory
         """
-        # open file
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-        # print(f'Decoding {len(lines)} lines.')
+        
+        file_in = open(file_path, 'rb')
+        file_out = open(self.dec_file_path(file_path, res_dir), 'w')
 
-        # define output file name
-        res_f_name = res_dir+file_path.split('/')[-1]+'.csv'
-
-        # we encode everything as a big string
-        res_str = ''
-        for line in lines:
-            # get elements
-            elems = line.split(sep='|')
-            # count occurrences
-            reps = int(elems[-1].strip()) - int(elems[-2].strip())
-            # append curr results to string
-            res_str += (''.join(elems[:-2])+'\n')*reps
-
-        # write our results to file
-        with open(res_f_name, 'w') as res:
-            res.write(res_str)
-
-        return res_str
+        byte = file_in.read(self.byte_len)
+        data = ''
+        while byte:
+            # start_pos_byte = file_in.read(self.byte_len)
+            reps_byte = file_in.read(self.byte_len)
+            reps = int.from_bytes(reps_byte, byteorder='big', signed=True)
+            number = int.from_bytes(byte, byteorder='big', signed=True)
+            file_out.write((str(number)+'\n')*reps)
+            byte = file_in.read(self.byte_len)
+            
+        return data

@@ -5,8 +5,8 @@ from solvers.encoder_decoder import EncoderDecoder
 
 
 class FOR(EncoderDecoder):
-  def __init__(self, name='FOR', extension='.for') -> None:
-    super().__init__(name, extension)
+  def __init__(self, data_type) -> None:
+    super().__init__(data_type, 'FOR', '.for')
 
   def encode(self, file_path, data_type='int8', res_dir='', **kwargs):
     '''

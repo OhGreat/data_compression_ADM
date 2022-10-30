@@ -1,5 +1,5 @@
 class DIC():
-    def __init__(self):
+    def __init__(self, data_type):
         self.name = "DIC"
         self.extension = '.dic'
 
@@ -19,7 +19,6 @@ class DIC():
 
         # define output file name
         res_f_name = res_dir+file_path.split('/')[-1]+self.extension
-        print(res_f_name)
 
         # create keys
         keys = {}

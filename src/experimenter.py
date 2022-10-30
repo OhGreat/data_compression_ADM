@@ -12,6 +12,9 @@ def single_experiment(solver, data_path, res_dir=None,
                         additional_info=None, keep_files=True, data_type='int8', **kwargs):
 
     # create results dir if non-existant
+    if data_type=='string' and solver.name in ['BIN', 'FOR', 'DIF']:
+        return
+    
     if res_dir is None:
         res_dir = '.'
     # check path is correct
@@ -114,17 +117,13 @@ if __name__ == "__main__":
     bin = BIN()
     for_ = FOR()
     
-    # csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/l_linenumber-int32.csv'
     csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/'
-    # l_extendedprice-int64.csv
-    # l_discount-int8.csv
-    # l_linenumber-int8.csv
 
     # Generic experiment
-    solvers = [RLE(), DIC(), BIN(), FOR(), DIF()]
-    data_types = ['int8', 'int16', 'int32', 'int64', 'string']
+    solvers = [BIN(), RLE(), DIC(), FOR(), DIF()]
+    data_types = ['string', 'int8', 'int16', 'int32', 'int64']
     for data_type in data_types:
-        bulk_experiment(csv_path, solvers, res_dir='results/temp/', keep_files=False, data_type=data_type)
+        bulk_experiment(csv_path, solvers, res_dir='results/all', keep_files=False, data_type=data_type)
     # single_experiment(bin, csv_path+'l_extendedprice-int64.csv', res_dir='temp_dict/', keep_files=False, data_type='int64')
     
 

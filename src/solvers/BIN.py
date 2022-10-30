@@ -46,7 +46,7 @@ class BIN():
         data_length = self.get_data_length(data_type)
 
         file_in = open(file_path, 'rb')
-        file_out_path = res_dir+'dec_'+file_path.split('/')[-1]
+        file_out_path = res_dir+file_path.split('/')[-1]+'.csv'
         file_out = open(file_out_path, 'w')
 
         bytes = file_in.read(data_length)

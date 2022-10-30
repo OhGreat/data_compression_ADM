@@ -70,7 +70,7 @@ class DIF(EncoderDecoder):
       decoded_index += 1
 
     # define output file name
-    res_f_name = res_dir+'dec_'+file_path.split('/')[-1]
+    res_f_name = res_dir+file_path.split('/')[-1]+'.csv'
 
     res_str = ''
     for line in decoded:

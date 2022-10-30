@@ -54,7 +54,7 @@ class DIC():
         # print(f'Decoding {len(lines)} lines.')
 
         # define output file name
-        res_f_name = res_dir+'dec_'+file_path.split('/')[-1]
+        res_f_name = res_dir+file_path.split('/')[-1]+'.csv'
         
         # create dict
         keys = {}

@@ -5,6 +5,7 @@ from solvers.RLE import RLE
 from solvers.DIC import DIC
 from solvers.BIN import BIN
 from solvers.FOR import FOR
+from solvers.DIF import DIF
 
 
 def single_experiment(solver, data_path, res_dir=None, 
@@ -23,7 +24,7 @@ def single_experiment(solver, data_path, res_dir=None,
     dataset = data_path.split('/')[-1]
     # generated file names
     enc_f_name = res_dir+dataset+solver.extension
-    dec_f_name = res_dir+dataset+solver.extension
+    dec_f_name = res_dir+dataset+solver.extension+'.csv'
 
     # encode and keep time
     enc_start = time.time()
@@ -120,8 +121,10 @@ if __name__ == "__main__":
     # l_linenumber-int8.csv
 
     # Generic experiment
-    solvers = [RLE(), DIC(), BIN(), FOR()]
-    bulk_experiment(csv_path, solvers, res_dir='results/temp/', keep_files=False, data_type='int64')
+    solvers = [RLE(), DIC(), BIN(), FOR(), DIF()]
+    data_types = ['int8', 'int16', 'int32', 'int64', 'string']
+    for data_type in data_types:
+        bulk_experiment(csv_path, solvers, res_dir='results/temp/', keep_files=False, data_type=data_type)
     # single_experiment(bin, csv_path+'l_extendedprice-int64.csv', res_dir='temp_dict/', keep_files=False, data_type='int64')
     
 

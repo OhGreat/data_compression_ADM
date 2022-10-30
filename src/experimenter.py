@@ -1,6 +1,6 @@
 import time
 from os import makedirs, listdir, remove
-from os.path import exists
+from os import path
 from solvers.RLE import RLE
 from solvers.DIC import DIC
 from solvers.BIN import BIN
@@ -16,14 +16,14 @@ def single_experiment(solver, data_path, res_dir=None,
     # check path is correct
     if res_dir[-1] != '/':
         res_dir += '/'
-    if not exists(res_dir):
+    if not path.exists(res_dir):
         makedirs(res_dir)
     
     # take name of the dataset
     dataset = data_path.split('/')[-1]
     # generated file names
     enc_f_name = res_dir+dataset+solver.extension
-    dec_f_name = res_dir+"dec_"+dataset+solver.extension
+    dec_f_name = res_dir+dataset+solver.extension
 
     # encode and keep time
     enc_start = time.time()
@@ -68,11 +68,11 @@ def single_experiment(solver, data_path, res_dir=None,
     len_str = f"orig len: {orig_len}, enc len: {enc_len}, ratio: {len_ratio}%, diff: {len_diff}%"
     print(len_str)
 
-    orig_chars = sum([len(line) for line in orig_lines])
-    enc_chars = sum([len(line) for line in enc_lines])
-    char_ratio = round(enc_chars/orig_chars * 100, 2)
-    char_diff = round((1 - enc_chars/orig_chars) * 100, 2)
-    char_str = f"orig chars: {orig_chars}, enc chars: {enc_chars}, ratio: {char_ratio}%, diff: {char_diff}%"
+    orig_size = path.getsize(data_path)
+    enc_size = path.getsize(enc_f_name)
+    compression_ratio = round(enc_size/orig_size * 100, 2)
+    compression_ratio_supplement = round((1 - enc_size/orig_size) * 100, 2)
+    char_str = f"orig size: {orig_size}, enc size: {enc_size}, ratio: {compression_ratio}%, diff: {compression_ratio_supplement}%"
     print(char_str, "\n")
 
     # if keep_files is False discard generated files

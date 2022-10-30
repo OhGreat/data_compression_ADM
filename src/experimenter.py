@@ -54,7 +54,7 @@ def single_experiment(solver, data_path, res_dir=None,
         print(result_match)
         print("Decoded:",len(dec_lines), "lines.")
 
-    if solver.name == 'bin':
+    if solver.name == 'BIN':
         with open(enc_f_name, 'rb') as enc:
             enc_lines = enc.readlines()
     else:

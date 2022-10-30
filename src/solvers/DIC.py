@@ -1,6 +1,6 @@
 class DIC():
     def __init__(self):
-        self.name = "dict"
+        self.name = "DIC"
         self.extension = '.dic'
 
     def encode(self, file_path, data_type='int8', res_dir=''):

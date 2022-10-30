@@ -1,6 +1,6 @@
 class BIN():
     def __init__(self):
-        self.name = "bin"
+        self.name = "BIN"
         self.extension = '.bin'
 
     def get_data_length(self, data_type):

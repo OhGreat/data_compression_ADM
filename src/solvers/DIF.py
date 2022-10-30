@@ -62,7 +62,7 @@ class DIF(EncoderDecoder):
     for index in range(1, len(lines)):
       curr_line = lines[index].rstrip()
       # if we reach special character
-      if  not curr_line.isnumeric():
+      if curr_line[0] == '&':
         decoded.append(int(curr_line[1:]))
       else:
         summation = int(curr_line) + decoded[decoded_index]
@@ -75,6 +75,7 @@ class DIF(EncoderDecoder):
     res_str = ''
     for line in decoded:
       res_str += str(line) + '\n'
+      
     with open(res_f_name, 'w') as res:
       res.write(res_str)
 

@@ -1,89 +1,84 @@
-import math
-from statistics import mean
+import numpy as np
 
-class FOR():
+# Local import
+from solvers.encoder_decoder import EncoderDecoder
 
-    def __init__(self):
-        self.name = "for"
-        self.extension = '.for'
 
-    def encode(self, file_path, data_type='int8', res_dir='', **kwargs):
-        """ 
-        Description: This function encodes the file in file_path in the output file with name res_dir.
+class FOR(EncoderDecoder):
+  def __init__(self, name='FOR', extension='.for') -> None:
+    super().__init__(name, extension)
 
-        Params:
-            - file_path: path of the file to encode
-            - res_dir: path to the output file
-        """
-        # define output file name
-        res_f_name = res_dir+file_path.split('/')[-1]+self.extension
+  def encode(self, file_path, data_type='int8', res_dir='', **kwargs):
+    '''
+    encoded strings are of type: string, start_idx, end_idx
+    where start_idx represents the starting index (starting at 0)
+    and end_idx represents the last index, (not to be included in the range)
+    Params:
+    - file_path: path of the file to encode
+    - res_f_name: path + name to the output file
+    '''
+    # open file
+    with open(file_path, 'r') as f:
+      lines = np.fromfile(f, dtype=data_type, sep='\n')
+    res_f_name = res_dir+file_path.split('/')[-1]+self.extension
 
-        # open file
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-            len_lines = len(lines)
-        print(f'Encoding {len_lines} lines.')
+    print(f'Encoding {len(lines)} lines.')
 
-        block_size = 256
-        if 'block_size' in kwargs:
-            block_size = kwargs['block_size']
+    if 'diff_thres' in kwargs:
+      diff_thres = kwargs['diff_thres']
+    else:
+      diff_thres = (np.max(lines) - np.min(lines))
+    frame = int(np.mean(lines))
+    encoded = [frame]
+    for index in range(len(lines)):
+      diff = lines[index] - frame
+      if diff <= diff_thres:
+        encoded.append(diff)
+      else:
+        encoded.append(f'&{lines[index]}')
 
-        curr_l = 0
-        encoded = ''
-        while curr_l < len_lines:
-            if curr_l % block_size == 0:
-                terminator = curr_l + block_size
-                if terminator > len_lines:
-                    terminator = len_lines
-                curr_ref = min([int(line.strip()) for line in lines[curr_l: terminator]])
-                encoded += str(curr_ref) + '\n'
-            encoded += str(int(lines[curr_l].strip()) - curr_ref) + '\n'
-            curr_l += 1
-        
-        with open(res_f_name, 'w') as res:
-            res.write(encoded)
-        
+    str_enc = ''
+    for line in encoded:
+      str_enc += str(line) + '\n'
+    with open(res_f_name, 'w') as res:
+      res.write(str_enc)
 
-    def decode(self, file_path, data_type='int8', res_dir='', **kwargs):
-        """
-        Description: This function decodes the file in file_path in the output file with name res_dir.
 
-        Params:
-            - file_path: path of the file to decode
-            - res_dir: path to the output file
-        """
+  def decode(self, file_path, data_type='int8', res_dir=''):
+    """
+    Description: This function decodes the file in file_path in the output file with name res_dir.
 
-        # open file
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-            len_lines = len(lines)
-        # print(f'Decoding {len_lines} lines.')
+    Params:
+        - file_path: path of the file to decode
+        - res_dir: path to the output file
+    """
+    # open file
+    with open(file_path, 'r') as f:
+      lines = f.readlines()
+    print(f'Decoding {len(lines)} lines.')
 
-        # define output file name
-        res_f_name = res_dir+'dec_'+file_path.split('/')[-1]
+    frame = int(lines[0])
+ 
+    decoded = []
+    for index in range(1, len(lines)):
+      curr_line = lines[index].rstrip()
+      # if we reach special character
+      if curr_line[0] == '&':
+        decoded.append(int(curr_line[1:]))
+      else:
+        summation = int(curr_line) + frame
+        decoded.append(summation)
 
-        # we need to offset the block size by 1
-        block_size = 256 + 1
-        if 'block_size' in kwargs:
-            block_size = kwargs['block_size'] + 1
+    # define output file name
+    res_f_name = res_dir+'dec_'+file_path.split('/')[-1]
 
-        # we encode everything as a big string
-        # res_str = ''
-        # for line in lines:
-        #     new_l = str(ref_val+int(line.strip())) + '\n'
-        #     res_str += new_l
+    res_str = ''
+    for line in decoded:
+      res_str += str(line) + '\n'
+      
+    with open(res_f_name, 'w') as res:
+      res.write(res_str)
 
-        curr_l = 0
-        res_str = ''
-        while curr_l < len_lines:
-            if curr_l % block_size == 0:
-                curr_ref = int(lines[curr_l].strip())
-            else:
-                res_str += str(int(lines[curr_l].strip()) + curr_ref)+'\n'
-            curr_l += 1
+    return res_str
 
-        # write our results to file
-        with open(res_f_name, 'w') as res:
-            res.write(res_str)
-
-        return res_str
+  

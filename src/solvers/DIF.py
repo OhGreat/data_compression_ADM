@@ -30,7 +30,6 @@ class DIF(EncoderDecoder):
       diff_thres = kwargs['diff_thres']
     else:
       diff_thres = (np.max(lines) - np.min(lines))
-    diff_thres = 10
     encoded = [lines[0]]
     for index in range(1, len(lines)):
       diff = lines[index] - lines[index - 1]

@@ -31,7 +31,7 @@ def single_experiment(solver, data_path, res_dir=None,
 
     # encode and keep time
     enc_start = time.time()
-    solver.encode(data_path, data_type, res_dir, **kwargs)
+    solver.encode(data_path, res_dir, **kwargs)
     enc_end = time.time()
     enc_tot = enc_end - enc_start
     enc_str = f"Encoding time: {enc_tot}"
@@ -39,7 +39,7 @@ def single_experiment(solver, data_path, res_dir=None,
 
     # decode and keep time
     dec_start = time.time()
-    solver.decode(enc_f_name, data_type, res_dir, **kwargs)
+    solver.decode(enc_f_name, res_dir, **kwargs)
     dec_end = time.time()
     dec_tot = dec_end - dec_start
     dec_str = f"Decoding time: {dec_tot}"
@@ -63,7 +63,7 @@ def single_experiment(solver, data_path, res_dir=None,
             enc_lines = enc.readlines()
     else:
         # keep track of compression rations
-        with open(enc_f_name, 'r') as enc:
+        with open(enc_f_name, 'rb') as enc:
             enc_lines = enc.readlines()
     orig_len = len(orig_lines)
     enc_len = len(enc_lines)
@@ -72,8 +72,8 @@ def single_experiment(solver, data_path, res_dir=None,
     len_str = f"orig len: {orig_len}, enc len: {enc_len}, ratio: {len_ratio}%, diff: {len_diff}%"
     print(len_str)
 
-    orig_size = path.getsize(data_path)
-    enc_size = path.getsize(enc_f_name)
+    orig_size = path.getsize(data_path) / (1024*1024)
+    enc_size = path.getsize(enc_f_name) / (1024*1024)
     compression_ratio = round(enc_size/orig_size * 100, 2)
     compression_ratio_supplement = round((1 - enc_size/orig_size) * 100, 2)
     char_str = f"orig size: {orig_size}, enc size: {enc_size}, ratio: {compression_ratio}%, diff: {compression_ratio_supplement}%"
@@ -112,18 +112,27 @@ def bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', 
 
 
 if __name__ == "__main__":
-    rle = RLE()
-    dict_ = DIC()
-    bin = BIN()
-    for_ = FOR()
-    
     csv_path = 'ADM-2022-Assignment-2-data-T-SF-1/'
 
     # Generic experiment
-    solvers = [BIN(), RLE(), DIC(), FOR(), DIF()]
-    data_types = ['string', 'int8', 'int16', 'int32', 'int64']
+    data_types = [
+        # 'string',
+        'int8',
+        'int16',
+        'int32',
+        'int64',
+         ]
     for data_type in data_types:
-        bulk_experiment(csv_path, solvers, res_dir='results/all', keep_files=False, data_type=data_type)
+        solvers = [
+            # BIN(data_type),
+            RLE(data_type),
+            # DIC(data_type),
+            # FOR(data_type),
+            # DIF(data_type),
+        ]
+        
+        for solver in solvers:
+            bulk_experiment(csv_path, solvers, res_dir='results/new', keep_files=True, data_type=data_type)
     # single_experiment(bin, csv_path+'l_extendedprice-int64.csv', res_dir='temp_dict/', keep_files=False, data_type='int64')
     
 

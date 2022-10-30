@@ -1,3 +1,4 @@
+import numpy as np
 
 class EncoderDecoder():
   def __init__(self, name:str, extension:str, data_type:str) -> None:
@@ -30,6 +31,11 @@ class EncoderDecoder():
     elif data_type == 'int64':
         return 8
       
+  def min_bytes_for(self, number):
+    return int(np.ceil(
+            np.ceil(np.log2(number)) / 8
+        ))
+    
   def byte(self, number, byte_len=None):
     if byte_len is None:
       byte_len = self.byte_len

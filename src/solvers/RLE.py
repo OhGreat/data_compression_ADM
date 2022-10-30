@@ -16,12 +16,15 @@ class RLE(EncoderDecoder):
             - res_f_name: path + name to the output file
         """
         
-        lines = np.fromfile(f, dtype=self.data_type, sep='\n')
-        max_diff = np.max(lines) - np.min(lines)
+        lines = np.fromfile(file_path, dtype=self.data_type, sep='\n')
         
         print(f'Encoding {len(lines)} lines.')
+        max_length = np.log2(len(lines))
+        run_length_bytes = self.min_bytes_for(max_length)
+        
         file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
-
+        file_out.write(self.byte(run_length_bytes, 1))
+        
         i = 0
         data_len = len(lines)
         while i < data_len:
@@ -32,7 +35,8 @@ class RLE(EncoderDecoder):
                 j += 1
             
             file_out.write(
-                self.byte(int(lines[i][:-1])) + self.byte(int(run_length))
+                self.byte(int(lines[i])) + \
+                    self.byte(int(run_length), run_length_bytes)
             )
             
             i += run_length
@@ -46,15 +50,17 @@ class RLE(EncoderDecoder):
         
         file_in = open(file_path, 'rb')
         file_out = open(self.dec_file_path(file_path, res_dir), 'w')
-
-        byte = file_in.read(self.byte_len)
+        
+        byte = file_in.read(1)
+        run_length_bytes = self.number(byte)
         data = ''
-        while byte:
-            # start_pos_byte = file_in.read(self.byte_len)
-            reps_byte = file_in.read(self.byte_len)
-            reps = int.from_bytes(reps_byte, byteorder='big', signed=True)
-            number = int.from_bytes(byte, byteorder='big', signed=True)
+        number_bytes = file_in.read(self.byte_len)
+        while number_bytes:
+            number = self.number(number_bytes)
+            reps_byte = file_in.read(run_length_bytes)
+            reps = self.number(reps_byte)
+            data += (str(number)+'\n')*reps
             file_out.write((str(number)+'\n')*reps)
-            byte = file_in.read(self.byte_len)
+            number_bytes = file_in.read(self.byte_len)
             
         return data

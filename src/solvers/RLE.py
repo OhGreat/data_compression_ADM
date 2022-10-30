@@ -31,7 +31,7 @@ class RLE():
                 pairs += 1
                 j += 1
             # add curr data to string (and remove newline [:-1])
-            res_str += f'{lines[i][:-1]} {i} {i+pairs}\n'
+            res_str += f'{lines[i][:-1]}|{i}|{i+pairs}\n'
             # increment counter of visited lines
             i += pairs
 
@@ -58,7 +58,7 @@ class RLE():
         res_str = ''
         for line in lines:
             # get elements
-            elems = line.split(sep=' ')
+            elems = line.split(sep='|')
             # count occurrences
             reps = int(elems[-1].strip()) - int(elems[-2].strip())
             # append curr results to string

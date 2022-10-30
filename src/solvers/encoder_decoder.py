@@ -33,7 +33,7 @@ class EncoderDecoder():
       
   def min_bytes_for(self, number):
     return int(np.ceil(
-            np.ceil(np.log2(number)) / 8
+            int(np.log2(number)+1) / 8
         ))
     
   def byte(self, number, byte_len=None):

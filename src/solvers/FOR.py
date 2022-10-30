@@ -55,7 +55,7 @@ class FOR(EncoderDecoder):
     # open file
     with open(file_path, 'r') as f:
       lines = f.readlines()
-    print(f'Decoding {len(lines)} lines.')
+    # print(f'Decoding {len(lines)} lines.')
 
     frame = int(lines[0])
  

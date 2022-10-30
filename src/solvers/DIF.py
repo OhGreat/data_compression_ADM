@@ -56,7 +56,7 @@ class DIF(EncoderDecoder):
     # open file
     with open(file_path, 'r') as f:
       lines = f.readlines()
-    print(f'Decoding {len(lines)} lines.')
+    # print(f'Decoding {len(lines)} lines.')
     decoded = [int(lines[0])]
     decoded_index = 0
     for index in range(1, len(lines)):

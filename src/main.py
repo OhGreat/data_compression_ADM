@@ -48,4 +48,4 @@ def main(argv):
     return ret
 
 if __name__ == "__main__":
-    print(main(sys.argv[1:]), end='')
+    main(sys.argv[1:])

@@ -5,9 +5,6 @@ import numpy as np
 # Local import
 from solvers.encoder_decoder import EncoderDecoder
 
-def bin_array(num, m, dtype):
-    """Convert a positive integer num into an m-bit bit vector"""
-    return np.array(list(np.binary_repr(num).zfill(m))).astype(dtype=dtype)
 
 class DIF(EncoderDecoder):
   def __init__(self, name='DIF', extension='.dif') -> None:
@@ -28,11 +25,10 @@ class DIF(EncoderDecoder):
     res_f_name = res_dir+file_path.split('/')[-1]+self.extension
 
     print(f'Encoding {len(lines)} lines.')
-    print(lines)
+
     min, max = np.min(lines), np.max(lines)
     max_diff = max - min
     encoded = [lines[0]]
-    first = True
     for index in range(1, len(lines)):
       diff = lines[index] - lines[index - 1]
       if diff <= max_diff:
@@ -61,17 +57,22 @@ class DIF(EncoderDecoder):
       lines = np.fromfile(f, dtype=data_type, sep='\n')
     print(f'Decoding {len(lines)} lines.')
 
+    decoded = [lines[0]]
+    for index in range(1, len(lines)):
+      if lines[index] =='&':
+        del lines[index]
+        decoded.append(lines[index])
+        
+      else:
+        sum = lines[index] + decoded[index - 1]
+        decoded.append(sum)
+
     # define output file name
     res_f_name = res_dir+'dec_'+file_path.split('/')[-1]
 
-    #####################################################################
-    # TODO: decode everything in as a big string in res_str
-    res_str = ""
-
-
-    #####################################################################
-
-    # write our results to file
+    res_str = ''
+    for line in decoded:
+      res_str += str(line) + '\n'
     with open(res_f_name, 'w') as res:
       res.write(res_str)
 

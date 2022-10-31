@@ -15,7 +15,7 @@ class RLE(EncoderDecoder):
             lines = np.fromfile(file_path, dtype=self.data_type, sep='\n')
         
         print(f'Encoding {len(lines)} lines.')
-        max_length = np.log2(len(lines))
+        max_length = int(np.log2(len(lines)))
         run_length_bytes = self.min_bytes_for(max_length)
         
         file_out = open(self.enc_file_path(file_path, res_dir), 'wb')

@@ -125,10 +125,10 @@ if __name__ == "__main__":
     for data_type in data_types:
         solvers = [
             # BIN(data_type),
-            RLE(data_type),
+            # RLE(data_type),
             # DIC(data_type),
             # FOR(data_type),
-            # DIF(data_type),
+            DIF(data_type),
         ]
         
         for solver in solvers:

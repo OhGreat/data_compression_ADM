@@ -2,8 +2,10 @@ ADM-2022-Assignment-2-data-T-SF-1.zip
 ADM-2022-Assignment-2-data-T-SF-1
 src/temp.py
 .DS_Store
+results/new
 __pycache__
 *temp*
 *.dic
 *.rle
 results/temp
+*.txt

@@ -6,7 +6,7 @@ from solvers.encoder_decoder import EncoderDecoder
 
 
 class DIF(EncoderDecoder):
-  def __init__(self, data_type) -> None:
+  def __init__(self, data_type:str) -> None:
     super().__init__('DIF', '.dif', data_type)
 
   def encode(self, file_path, res_dir='', **kwargs):
@@ -22,7 +22,7 @@ class DIF(EncoderDecoder):
     # print(self.data_type)
     with open(file_path, 'r') as f:
       lines = np.fromfile(f, dtype=self.data_type, sep='\n')
-    print(lines[:25])
+    # print(lines[:25])
     res_f_name = self.enc_file_path(file_path, res_dir)
     print(f'Encoding {len(lines)} lines.')
 
@@ -30,14 +30,14 @@ class DIF(EncoderDecoder):
       diff_thres = kwargs['diff_thres']
     else:
       diff_thres = int(abs(max(np.diff(lines),key=abs)))+1
-    diff_thres = 10
-    print(diff_thres)
+    # diff_thres = 10
+    # print(diff_thres)
     max_min_diff = int(np.max(lines) - np.min(lines))*2
-    print(max_min_diff)
+    # print(max_min_diff)
     # print(max(lines, key=abs))
     byte_len = self.min_bytes_for(max_min_diff)
     # byte_len = int(self.min_bytes_for(int(max(lines, key=abs))))
-    print(byte_len)
+    # print(byte_len)
     file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
 
     encoding_len = self.byte(byte_len, self.byte_len)
@@ -57,7 +57,7 @@ class DIF(EncoderDecoder):
     for index in range(1, len(lines)):
       diff = lines[index] - lines[index - 1]
       # print(int(diff), diff_thres)
-      if abs(diff) < diff_thres:       
+      if abs(diff) <= diff_thres:       
         bytes_to_write = self.byte(int(diff), byte_len)
       else:
         bytes_to_write = self.byte(int(lines[index]), byte_len)
@@ -78,10 +78,9 @@ class DIF(EncoderDecoder):
     """
 
     with open(file_path, "rb") as file:
-      print(self.byte_len)
       data = file.read(self.byte_len)
       byte_len = self.number(data)
-      print(byte_len)
+      # print(byte_len)
       data = file.read(byte_len)
       max_diff = int(self.number(data))
 
@@ -91,7 +90,6 @@ class DIF(EncoderDecoder):
       while (data := file.read(byte_len)):
         # if difference exceeds threshold (special character simulation)
         if abs(self.number(data)) >= max_diff:
-          # print('here')
           decoded.append(self.number(data))
         else:
           summation = self.number(data) + decoded[-1] 

@@ -1,0 +1,137 @@
+{}
+Curr solver: BIN curr file: l_tax-int8.csv
+Encoding 6001215 lines.
+Encoding time: 4.226982116699219
+Decoding time: 3.962679147720337
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 1, ratio: 0.0%, diff: 100.0%
+orig size: 11.446409225463867, enc size: 5.723204612731934, ratio: 50.0%, diff: 50.0% 
+
+
+Curr solver: BIN curr file: l_quantity-int8.csv
+Encoding 6001215 lines.
+Encoding time: 3.9220023155212402
+Decoding time: 4.234907627105713
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 119701, ratio: 1.99%, diff: 98.01%
+orig size: 16.14037036895752, enc size: 5.723204612731934, ratio: 35.46%, diff: 64.54% 
+
+
+Curr solver: BIN curr file: l_discount-int8.csv.dic.csv
+Encoding 6001215 lines.
+Encoding time: 4.807434558868408
+Decoding time: 4.689246416091919
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 545816, ratio: 9.1%, diff: 90.9%
+orig size: 11.966938972473145, enc size: 5.723204612731934, ratio: 47.83%, diff: 52.17% 
+
+
+Curr solver: BIN curr file: l_linenumber-int8.csv
+Encoding 6001215 lines.
+Encoding time: 3.6106269359588623
+Decoding time: 4.673360824584961
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 1, ratio: 0.0%, diff: 100.0%
+orig size: 11.446409225463867, enc size: 5.723204612731934, ratio: 50.0%, diff: 50.0% 
+
+
+Curr solver: BIN curr file: l_discount-int8.csv
+Encoding 6001215 lines.
+Encoding time: 4.0938615798950195
+Decoding time: 5.047062635421753
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 545816, ratio: 9.1%, diff: 90.9%
+orig size: 11.966938972473145, enc size: 5.723204612731934, ratio: 47.83%, diff: 52.17% 
+
+
+{}
+Curr solver: BIN curr file: l_suppkey-int16.csv
+Encoding 6001215 lines.
+Encoding time: 4.37877631187439
+Decoding time: 4.775904655456543
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 177845, ratio: 2.96%, diff: 97.04%
+orig size: 27.982518196105957, enc size: 11.446409225463867, ratio: 40.91%, diff: 59.09% 
+
+
+{}
+Curr solver: BIN curr file: l_suppkey-int32.csv
+Encoding 6001215 lines.
+Encoding time: 4.733823299407959
+Decoding time: 4.883744716644287
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 177845, ratio: 2.96%, diff: 97.04%
+orig size: 27.982518196105957, enc size: 22.892818450927734, ratio: 81.81%, diff: 18.19% 
+
+
+Curr solver: BIN curr file: l_extendedprice-int32.csv
+Encoding 6001215 lines.
+Encoding time: 4.825852870941162
+Decoding time: 6.022210121154785
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 100279, ratio: 1.67%, diff: 98.33%
+orig size: 45.048927307128906, enc size: 22.892818450927734, ratio: 50.82%, diff: 49.18% 
+
+
+Curr solver: BIN curr file: l_partkey-int32.csv
+Encoding 6001215 lines.
+Encoding time: 4.38104510307312
+Decoding time: 5.7553019523620605
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 54290, ratio: 0.9%, diff: 99.1%
+orig size: 36.88374328613281, enc size: 22.892818450927734, ratio: 62.07%, diff: 37.93% 
+
+
+Curr solver: BIN curr file: l_orderkey-int32.csv
+Encoding 6001215 lines.
+Encoding time: 4.644920349121094
+Decoding time: 5.331640958786011
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 89130, ratio: 1.49%, diff: 98.51%
+orig size: 44.725600242614746, enc size: 22.892818450927734, ratio: 51.19%, diff: 48.81% 
+
+
+Curr solver: BIN curr file: l_linenumber-int32.csv
+Encoding 6001215 lines.
+Encoding time: 4.0520079135894775
+Decoding time: 4.593065977096558
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 1, ratio: 0.0%, diff: 100.0%
+orig size: 11.446409225463867, enc size: 22.892818450927734, ratio: 200.0%, diff: -100.0% 
+
+
+{}
+Curr solver: BIN curr file: l_tax-int64.csv
+Encoding 6001215 lines.
+Encoding time: 4.394840717315674
+Decoding time: 4.9206624031066895
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 1, ratio: 0.0%, diff: 100.0%
+orig size: 11.446409225463867, enc size: 45.78563690185547, ratio: 400.0%, diff: -300.0% 
+
+
+Curr solver: BIN curr file: l_quantity-int64.csv
+Encoding 6001215 lines.
+Encoding time: 5.226790428161621
+Decoding time: 4.882391691207886
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 119701, ratio: 1.99%, diff: 98.01%
+orig size: 16.14037036895752, enc size: 45.78563690185547, ratio: 283.67%, diff: -183.67% 
+
+
+Curr solver: BIN curr file: l_extendedprice-int64.csv
+Encoding 6001215 lines.
+Encoding time: 5.302166223526001
+Decoding time: 5.605544805526733
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 100279, ratio: 1.67%, diff: 98.33%
+orig size: 45.048927307128906, enc size: 45.78563690185547, ratio: 101.64%, diff: -1.64% 
+
+
+Curr solver: BIN curr file: l_discount-int64.csv
+Encoding 6001215 lines.
+Encoding time: 3.4153618812561035
+Decoding time: 4.601468324661255
+OK! Decoded file matches the original file.
+orig len: 6001215, enc len: 545816, ratio: 9.1%, diff: 90.9%
+orig size: 11.966938972473145, enc size: 45.78563690185547, ratio: 382.6%, diff: -282.6% 

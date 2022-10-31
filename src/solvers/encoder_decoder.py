@@ -1,4 +1,5 @@
 import numpy as np
+from math import ceil
 
 class EncoderDecoder():
   def __init__(self, name:str, extension:str, data_type:str) -> None:
@@ -37,6 +38,7 @@ class EncoderDecoder():
     if number == 0:
       return 1
     else:
+      return ceil(number.bit_length() / 8.0)
       return (number.bit_length() + 7) // 8
     # return int(np.ceil(
     #         int(np.log2(number+1)+1) / 8
@@ -45,13 +47,9 @@ class EncoderDecoder():
 
   def byte(self, number, byte_len=None):
     if byte_len is None:
-      byte_len = (8 + (number + (number < 0)).bit_length()) // 8
+      byte_len = self.byte_len
+      # byte_len = (8 + (number + (number < 0)).bit_length()) // 8
     
-    # return number.to_bytes(
-    #   byte_len, 
-    #   byteorder='big', 
-    #   signed=True
-    # )
     return number.to_bytes(
                   length=byte_len,
                   byteorder='big',
@@ -59,7 +57,6 @@ class EncoderDecoder():
                 )
   
   def number(self, byte):
-    # return np.fromstring(byte, dtype='<i')
     return int.from_bytes(
       byte,
       byteorder='big',

@@ -29,15 +29,18 @@ class DIF(EncoderDecoder):
     if 'diff_thres' in kwargs:
       diff_thres = kwargs['diff_thres']
     else:
-      diff_thres = int(max(np.diff(lines)))+1
+      diff_thres = int(abs(max(np.diff(lines),key=abs)))+1
     diff_thres = 10
-    # print(diff_thres)
-    # print(max(lines))
-    byte_len = int(self.min_bytes_for(int(max(lines))))
-    # print(byte_len)
+    print(diff_thres)
+    max_min_diff = int(np.max(lines) - np.min(lines))*2
+    print(max_min_diff)
+    # print(max(lines, key=abs))
+    byte_len = self.min_bytes_for(max_min_diff)
+    # byte_len = int(self.min_bytes_for(int(max(lines, key=abs))))
+    print(byte_len)
     file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
 
-    encoding_len = self.byte(int(byte_len), self.byte_len)
+    encoding_len = self.byte(byte_len, self.byte_len)
     max_diff_enc = self.byte(diff_thres, byte_len)
     first = self.byte(int(lines[0]), byte_len)
 
@@ -53,6 +56,7 @@ class DIF(EncoderDecoder):
 
     for index in range(1, len(lines)):
       diff = lines[index] - lines[index - 1]
+      # print(int(diff), diff_thres)
       if abs(diff) < diff_thres:       
         bytes_to_write = self.byte(int(diff), byte_len)
       else:
@@ -60,6 +64,7 @@ class DIF(EncoderDecoder):
       file_out.write(
           bytes_to_write 
       )
+    
 
 
 

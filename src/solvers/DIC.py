@@ -24,8 +24,8 @@ class DIC(EncoderDecoder):
                 keys[line] = counter
                 counter += 1
 
-        max_length = np.max(len(lines))
-        max_length_bytes = np.max([self.min_bytes_for(max_length), self.min_bytes_for(counter)])
+        max_length = int(np.max(len(lines)))
+        max_length_bytes = int(np.max([self.min_bytes_for(max_length), self.min_bytes_for(counter)]))
 
         # write dict size
         file_out.write(self.byte(int(max_length_bytes)))

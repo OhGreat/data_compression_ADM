@@ -129,6 +129,7 @@ if __name__ == "__main__":
             # DIC(data_type),
             # FOR(data_type),
             DIF(data_type),
+            # DIF(data_type, **({'diff_thres': 10}))
         ]
         
         for solver in solvers:

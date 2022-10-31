@@ -36,11 +36,21 @@ class DIF(EncoderDecoder):
       
     max_min_diff = int(np.max(lines) - np.min(lines))*2
     byte_len = self.min_bytes_for(max_min_diff)
+    
+    if byte_len > self.byte_len:
+      byte_len = self.byte_len
+
     separator = int(-(2**(byte_len*8)-2)/2)
     file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
 
-    encoding_len = self.byte(byte_len, self.byte_len)
+    max_num = int(abs(max(lines, key=abs)))
+ 
+    if max_num == separator:
+      byte_len += 1
+      separator = int(-(2**(byte_len*8)-2)/2)
+
     max_separator = self.byte(separator, byte_len)
+    encoding_len = self.byte(byte_len, 1)
     first = self.byte(int(lines[0]), byte_len)
 
     file_out.write(
@@ -62,9 +72,6 @@ class DIF(EncoderDecoder):
       file_out.write(
           bytes_to_write 
       )
-    
-
-
 
   def decode(self, file_path, res_dir=''):
     """
@@ -76,7 +83,7 @@ class DIF(EncoderDecoder):
     """
 
     with open(file_path, "rb") as file:
-      data = file.read(self.byte_len)
+      data = file.read(1)
       byte_len = self.number(data)
       data = file.read(byte_len)
       separator = int(self.number(data))

@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     # Generic experiment
     data_types = [
-        # 'string',
+        'string',
         'int8',
         'int16',
         'int32',
@@ -125,15 +125,16 @@ if __name__ == "__main__":
     for data_type in data_types:
         solvers = [
             BIN(data_type),
-            # RLE(data_type),
-            # DIC(data_type),
-            # FOR(data_type),
-            # DIF(data_type),
-            # DIF(data_type, **({'diff_thres': 10}))
+            RLE(data_type),
+            DIC(data_type),
+            FOR(data_type),
+            FOR(data_type, **({'diff_thres': 10})),
+            DIF(data_type),
+            DIF(data_type, **({'diff_thres': 10}))
         ]
         
-        for solver in solvers:
-            bulk_experiment(csv_path, solvers, res_dir='results/new', keep_files=True, data_type=data_type)
+        # for solver in solvers:
+        bulk_experiment(csv_path, solvers, res_dir='results/new', keep_files=True, data_type=data_type)
     # single_experiment(bin, csv_path+'l_extendedprice-int64.csv', res_dir='temp_dict/', keep_files=False, data_type='int64')
     
 

@@ -23,11 +23,11 @@ class BIN(EncoderDecoder):
 
         max_num = int(abs(max(lines, key=abs)))
         byte_len = self.min_bytes_for(max_num)*2
+        
         if byte_len > self.byte_len:
             byte_len = self.byte_len
-        # print(byte_len)
-        byte_len_enc = self.byte(byte_len, self.byte_len)
-
+            
+        byte_len_enc = self.byte(byte_len, 1)
         file_out.write(
             byte_len_enc
         )
@@ -43,18 +43,15 @@ class BIN(EncoderDecoder):
             - res_f_name: path + name to the output file
         """
 
-        # data_length = self.get_data_length(data_type)
-
         file_in = open(file_path, 'rb')
 
         out_path = self.dec_file_path(file_path, res_dir)
         file_out = open(out_path, 'w')
 
         with open(file_path, "rb") as file:
-            data = file.read(self.byte_len)
+            data = file.read(1)
             byte_len = self.number(data)
             while (data := file.read(byte_len)):
-                # data = file.read(byte_len)
                 write_out = self.number(data)
                 file_out.write('{}\n'.format(write_out))
 

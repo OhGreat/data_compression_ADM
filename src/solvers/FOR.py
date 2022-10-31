@@ -13,7 +13,7 @@ class FOR(EncoderDecoder):
       name = 'FOR'
     super().__init__(name, '.for', data_type)
 
-  def encode(self, file_path, res_dir='', **kwargs):
+  def encode(self, file_path, res_dir=''):
     '''
     encoded strings are of type: string, start_idx, end_idx
     where start_idx represents the starting index (starting at 0)
@@ -30,15 +30,22 @@ class FOR(EncoderDecoder):
       diff_thres = int(abs(max(np.diff(lines),key=abs)))+1
     else:
       diff_thres = self.diff_thres
+
     frame = int(np.mean(lines))
     max_min_diff = int(np.max(lines) - np.min(lines))*2
     byte_len = self.min_bytes_for(max_min_diff)
     separator = int(-(2**(byte_len*8)-2)/2)
-    file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
+    max_num = int(abs(max(lines, key=abs)))
+ 
+    if max_num == separator:
+      byte_len += 1
+      separator = int(-(2**(byte_len*8)-2)/2)
 
-    encoding_len = self.byte(byte_len, self.byte_len)
     max_separator = self.byte(separator, byte_len)
+    encoding_len = self.byte(byte_len, 1)
     frame_enc = self.byte(int(frame), byte_len)
+
+    file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
 
     file_out.write(
         encoding_len
@@ -73,7 +80,7 @@ class FOR(EncoderDecoder):
     """
 
     with open(file_path, "rb") as file:
-      data = file.read(self.byte_len)
+      data = file.read(1)
       byte_len = self.number(data)
       data = file.read(byte_len)
       separator = int(self.number(data))

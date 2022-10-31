@@ -5,10 +5,14 @@ from solvers.encoder_decoder import EncoderDecoder
 
 
 class FOR(EncoderDecoder):
-  def __init__(self, data_type) -> None:
-    super().__init__(data_type, 'FOR', '.for')
+  def __init__(self, data_type:str, **kwargs) -> None:
+    if 'diff_thres' in kwargs:
+      self.diff_thres = kwargs['diff_thres']
+    else: 
+      self.diff_thres = None
+    super().__init__('FOR', '.for', data_type)
 
-  def encode(self, file_path, data_type='int8', res_dir='', **kwargs):
+  def encode(self, file_path, res_dir='', **kwargs):
     '''
     encoded strings are of type: string, start_idx, end_idx
     where start_idx represents the starting index (starting at 0)
@@ -17,34 +21,48 @@ class FOR(EncoderDecoder):
     - file_path: path of the file to encode
     - res_f_name: path + name to the output file
     '''
-    # open file
     with open(file_path, 'r') as f:
-      lines = np.fromfile(f, dtype=data_type, sep='\n')
-    res_f_name = res_dir+file_path.split('/')[-1]+self.extension
-
+      lines = np.fromfile(f, dtype=self.data_type, sep='\n')
     print(f'Encoding {len(lines)} lines.')
 
-    if 'diff_thres' in kwargs:
-      diff_thres = kwargs['diff_thres']
+    if self.diff_thres == None:
+      diff_thres = int(abs(max(np.diff(lines),key=abs)))+1
     else:
-      diff_thres = (np.max(lines) - np.min(lines))
+      diff_thres = self.diff_thres
     frame = int(np.mean(lines))
-    encoded = [frame]
+    max_min_diff = int(np.max(lines) - np.min(lines))*2
+    byte_len = self.min_bytes_for(max_min_diff)
+    separator = int(-(2**(byte_len*8)-2)/2)
+    file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
+
+    encoding_len = self.byte(byte_len, self.byte_len)
+    max_separator = self.byte(separator, byte_len)
+    frame_enc = self.byte(int(frame), byte_len)
+
+    file_out.write(
+        encoding_len
+    )
+    file_out.write(
+        max_separator
+    )
+    file_out.write(
+        frame_enc
+    )
+
     for index in range(len(lines)):
       diff = lines[index] - frame
-      if diff <= diff_thres:
-        encoded.append(diff)
+      if abs(diff) <= diff_thres:       
+        bytes_to_write = self.byte(int(diff), byte_len)
       else:
-        encoded.append(f'&{lines[index]}')
-
-    str_enc = ''
-    for line in encoded:
-      str_enc += str(line) + '\n'
-    with open(res_f_name, 'w') as res:
-      res.write(str_enc)
+        bytes_to_write = self.byte(separator, byte_len) + self.byte(int(lines[index]), byte_len)
+      file_out.write(
+          bytes_to_write 
+      )
+    
 
 
-  def decode(self, file_path, data_type='int8', res_dir=''):
+
+  def decode(self, file_path, res_dir=''):
     """
     Description: This function decodes the file in file_path in the output file with name res_dir.
 
@@ -52,25 +70,23 @@ class FOR(EncoderDecoder):
         - file_path: path of the file to decode
         - res_dir: path to the output file
     """
-    # open file
-    with open(file_path, 'r') as f:
-      lines = f.readlines()
-    # print(f'Decoding {len(lines)} lines.')
 
-    frame = int(lines[0])
- 
-    decoded = []
-    for index in range(1, len(lines)):
-      curr_line = lines[index].rstrip()
-      # if we reach special character
-      if curr_line[0] == '&':
-        decoded.append(int(curr_line[1:]))
-      else:
-        summation = int(curr_line) + frame
-        decoded.append(summation)
-
-    # define output file name
-    res_f_name = res_dir+file_path.split('/')[-1]+'.csv'
+    with open(file_path, "rb") as file:
+      data = file.read(self.byte_len)
+      byte_len = self.number(data)
+      data = file.read(byte_len)
+      separator = int(self.number(data))
+      data = file.read(byte_len)
+      frame = self.number(data)
+      decoded = []
+      while (data := file.read(byte_len)):
+        # if special character simulation found
+        if self.number(data) == separator:
+          decoded.append(self.number(file.read(byte_len)))
+        else:
+          summation = self.number(data) + frame
+          decoded.append(summation)
+    res_f_name = self.dec_file_path(file_path, res_dir)
 
     res_str = ''
     for line in decoded:

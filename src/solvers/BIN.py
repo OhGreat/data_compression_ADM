@@ -26,8 +26,9 @@ class BIN(EncoderDecoder):
         
         if byte_len > self.byte_len:
             byte_len = self.byte_len
-            
+        # print(byte_len)
         byte_len_enc = self.byte(byte_len, 1)
+
         file_out.write(
             byte_len_enc
         )

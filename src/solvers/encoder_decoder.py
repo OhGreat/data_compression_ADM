@@ -39,7 +39,7 @@ class EncoderDecoder():
       return 1
     else:
       return ceil(number.bit_length() / 8.0)
-      return (number.bit_length() + 7) // 8
+      # return (number.bit_length() + 7) // 8
     # return int(np.ceil(
     #         int(np.log2(number+1)+1) / 8
     #     ))

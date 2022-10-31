@@ -9,11 +9,13 @@ class DIF(EncoderDecoder):
   def __init__(self, data_type:str, **kwargs) -> None:
     if 'diff_thres' in kwargs:
       self.diff_thres = kwargs['diff_thres']
+      name = f'DIF{self.diff_thres}'
     else: 
       self.diff_thres = None
-    super().__init__('DIF', '.dif', data_type)
+      name = 'DIF'
+    super().__init__(name, '.dif', data_type)
 
-  def encode(self, file_path, res_dir='', **kwargs):
+  def encode(self, file_path, res_dir=''):
     '''
     encoded strings are of type: string, start_idx, end_idx
     where start_idx represents the starting index (starting at 0)
@@ -22,8 +24,7 @@ class DIF(EncoderDecoder):
     - file_path: path of the file to encode
     - res_f_name: path + name to the output file
     '''
-    # open file
-    # print(self.data_type)
+
     with open(file_path, 'r') as f:
       lines = np.fromfile(f, dtype=self.data_type, sep='\n')
     print(f'Encoding {len(lines)} lines.')

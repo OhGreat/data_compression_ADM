@@ -3,14 +3,15 @@ import numpy as np
 # Local import
 from solvers.encoder_decoder import EncoderDecoder
 
-
 class FOR(EncoderDecoder):
   def __init__(self, data_type:str, **kwargs) -> None:
     if 'diff_thres' in kwargs:
       self.diff_thres = kwargs['diff_thres']
+      name = f'FOR{self.diff_thres}'
     else: 
       self.diff_thres = None
-    super().__init__('FOR', '.for', data_type)
+      name = 'FOR'
+    super().__init__(name, '.for', data_type)
 
   def encode(self, file_path, res_dir='', **kwargs):
     '''

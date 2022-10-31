@@ -1,20 +1,12 @@
-class BIN():
+import numpy as np
+
+from solvers.encoder_decoder import EncoderDecoder
+
+class BIN(EncoderDecoder):
     def __init__(self, data_type):
-        self.name = "BIN"
-        self.extension = '.bin'
+        super().__init__('BIN', '.bin', data_type)
 
-    def get_data_length(self, data_type):
-        ''' returns bytes needed to store each type'''
-        if data_type == 'int8':
-            return 1
-        elif data_type == 'int16':
-            return 2
-        elif data_type == 'int32':
-            return 4
-        elif data_type == 'int64':
-            return 8
-
-    def encode(self, file_path, data_type, res_dir=''):
+    def encode(self, file_path, res_dir=''):
         """ encoded strings are of type: string, start_idx, end_idx
             where start_idx represents the starting index (starting at 0)
             and end_idx represents the last index, (not to be included in the range)
@@ -23,40 +15,48 @@ class BIN():
             - file_path: path of the file to encode
             - res_f_name: path + name to the output file
         """
-        data_length = self.get_data_length(data_type)
+        with open(file_path, 'r') as f:
+            lines = np.fromfile(f, dtype=self.data_type, sep='\n')
+        print(f'Encoding {len(lines)} lines.')
 
-        file_in = open(file_path, 'r')
-        file_out_path = res_dir+file_path.split('/')[-1]+self.extension
-        file_out = open(file_out_path, 'wb')
+        file_out = open(self.enc_file_path(file_path, res_dir), 'wb')
 
-        for i in file_in:
-            file_out.write(int(i.replace('\n', '')).to_bytes(
-                data_length, byteorder='big', signed=True))
+        max_num = int(abs(max(lines, key=abs)))
+        byte_len = self.min_bytes_for(max_num)*2
+        if byte_len > self.byte_len:
+            byte_len = self.byte_len
+        # print(byte_len)
+        byte_len_enc = self.byte(byte_len, self.byte_len)
 
-        file_in.close()
+        file_out.write(
+            byte_len_enc
+        )
+        for number in lines:
+            file_out.write(self.byte(int(number), byte_len))
+
         file_out.close()
         return 0
 
-    def decode(self, file_path, data_type, res_dir=''):
+    def decode(self, file_path, res_dir=''):
         """ Params:
             - file_path: path of the file to decode
             - res_f_name: path + name to the output file
         """
 
-        data_length = self.get_data_length(data_type)
+        # data_length = self.get_data_length(data_type)
 
         file_in = open(file_path, 'rb')
-        file_out_path = res_dir+file_path.split('/')[-1]+'.csv'
-        file_out = open(file_out_path, 'w')
 
-        bytes = file_in.read(data_length)
-        while bytes:
-            file_out.write('{}\n'.format(int.from_bytes(bytes, byteorder='big', signed=True)))
-            bytes = file_in.read(data_length)
+        out_path = self.dec_file_path(file_path, res_dir)
+        file_out = open(out_path, 'w')
+
+        with open(file_path, "rb") as file:
+            data = file.read(self.byte_len)
+            byte_len = self.number(data)
+            while (data := file.read(byte_len)):
+                # data = file.read(byte_len)
+                write_out = self.number(data)
+                file_out.write('{}\n'.format(write_out))
 
         file_in.close()
         file_out.close()
-
-        with open(file_out_path, 'r') as f:
-            lines = f.readlines()
-            return ''.join(lines)

@@ -2,7 +2,11 @@
 The following repository is a benchmarking tool for encoding/decoding files.
 
 ## Installation and requirements
-To use the following repository a Python >= 3.7 environment is required.
+To use the following repository a `Python >= 3.7` environment is required, together with the packages defined in the `requirements.txt` file. 
+To install the required packages you can use the following comamnd:
+```
+pip install requirements.txt
+```
 
 ## Usage
 
@@ -23,9 +27,9 @@ where:
 ### Running experiments
 Two main experimenter function have been created under `src/experimenter.py`. 
 
-To run a single experiment the function *single_experiment* is available and is defined as below:
+A single experiment consists in an encoding and decoding routine of a given file, collecting statistics of the run. The function is available under the name *single_experiment* and is defined as below:
 ``` python
-single_experiment(solver, data_path, res_dir=None, additional_info=None, keep_files=True)
+single_experiment(solver, data_path, res_dir=None, additional_info=None, keep_files=True, data_type='int8', **kwargs)
 ```
 where:
 - solver: defines the method to use for the encoding/decoding part.
@@ -33,10 +37,14 @@ where:
 - res_dir: directory where to save results.
 - additional_info: string containing additional notes we want to include in our result report.
 - keep_files: when set to False the generated files of the experiment will be discarded.
+- data_type: defines the files of the directory to use in the experiment.
+- kwargs: additional keyword arguments that should be passed to the encode and decode functions
+
+The output of the *single_experiment* function can be found in the defined results folder. In addition to the encoded and decoded files, a *.out* file is created containing the statistics collected.
 
 To run a bulk experiment for various solvers and datasets, the function *bulk_experiment* can be used as follows:
 ``` python 
-bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', keep_files=True)
+bulk_experiment(files_dir, solvers, additional_info='', res_dir='results/', keep_files=True, data_type='int8', **kwargs)
 ```
 where:
 - files_dir: (str) directory containing all the files to experiment with.
@@ -44,6 +52,10 @@ where:
 - additional_info: (str) additional information to be logged with each experiment
 - res_dir: (str) directory to save results
 - keep_files: when set to False the generated files of the experiment will be discarded.
+- data_type: defines the files of the directory to use in the experiment.
+- kwargs: additional keyword arguments that should be passed to the encode and decode functions
+
+The bulk experimenter is simply a generalization of the single experiment defined above.
 
 Example calls of the above functions can be found at the end of the *src/experimenter.py* file.
 
@@ -54,4 +66,4 @@ All encoders/decoders can be found under the `src/solvers` directory. A template
 - *encode* and *decode* methods must be defined.
 - the *decode* method must return the plain decoded text, while *encode* should return 0.
 
-Once a new solver has been implemented, it can be imported and added in line 19 of the *src/main.py* file to be usable. For the experimenter file just import it in the beginning of the file.
+Once a new solver has been implemented, it can be imported and added in line 27 of the *src/main.py* file to be usable. For the experimenter file just import it in the beginning of the file.

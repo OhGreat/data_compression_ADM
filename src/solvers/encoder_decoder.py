@@ -9,10 +9,10 @@ class EncoderDecoder():
     self.byte_len = self.get_byte_length(data_type)
     return
 
-  def encode(self):
+  def encode(self, **kwargs):
     pass
 
-  def decode(self):
+  def decode(self, **kwargs):
     pass
   
   def enc_file_path(self, file_path, res_dir):

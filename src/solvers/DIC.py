@@ -4,7 +4,7 @@ class DIC(EncoderDecoder):
     def __init__(self, data_type: str) -> None:
         super().__init__("DIC", '.dic', data_type)
 
-    def encode(self, file_path, data_type='int8', res_dir=''):
+    def encode(self, file_path, res_dir=''):
         
         if self.data_type == 'string':
             with open(file_path, 'r') as f:
@@ -47,7 +47,7 @@ class DIC(EncoderDecoder):
         return 0
 
 
-    def decode(self, file_path, data_type='int8', res_dir=''):
+    def decode(self, file_path, res_dir=''):
         """ Params:
             - file_path: path of the file to decode
             - res_f_name: path + name to the output file

@@ -26,7 +26,7 @@ class BIN(EncoderDecoder):
         if byte_len > self.byte_len:
             byte_len = self.byte_len
         # print(byte_len)
-        byte_len_enc = self.byte(byte_len, self.byte_len)
+        byte_len_enc = self.byte(byte_len, 1)
 
         file_out.write(
             byte_len_enc
@@ -51,7 +51,7 @@ class BIN(EncoderDecoder):
         file_out = open(out_path, 'w')
 
         with open(file_path, "rb") as file:
-            data = file.read(self.byte_len)
+            data = file.read(1)
             byte_len = self.number(data)
             while (data := file.read(byte_len)):
                 # data = file.read(byte_len)

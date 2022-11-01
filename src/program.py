@@ -23,7 +23,7 @@ def main(argv):
     if  argv[2] == 'string' and argv[1] in ['bin', 'for', 'dif']:
         exit("This encoding is for integer types only")
     dtype = argv[2]
-    # print(dtype)
+    
     solvers = {
         'rle': RLE(dtype),
         'dic': DIC(dtype),

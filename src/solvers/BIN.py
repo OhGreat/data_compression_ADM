@@ -52,9 +52,12 @@ class BIN(EncoderDecoder):
         with open(file_path, "rb") as file:
             data = file.read(1)
             byte_len = self.number(data)
+            out_str = ''
             while (data := file.read(byte_len)):
                 write_out = self.number(data)
                 file_out.write('{}\n'.format(write_out))
-
+                out_str += '{}\n'.format(write_out)
         file_in.close()
         file_out.close()
+        
+        return out_str

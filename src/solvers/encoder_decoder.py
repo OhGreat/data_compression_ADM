@@ -38,17 +38,11 @@ class EncoderDecoder():
     if number == 0:
       return 1
     else:
-      return ceil(number.bit_length() / 8.0)
-      # return (number.bit_length() + 7) // 8
-    # return int(np.ceil(
-    #         int(np.log2(number+1)+1) / 8
-    #     ))
-    
+      return ceil(number.bit_length() / 8.0)    
 
   def byte(self, number, byte_len=None):
     if byte_len is None:
       byte_len = self.byte_len
-      # byte_len = (8 + (number + (number < 0)).bit_length()) // 8
     
     return number.to_bytes(
                   length=byte_len,

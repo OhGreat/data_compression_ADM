@@ -67,6 +67,7 @@ class FOR(EncoderDecoder):
           bytes_to_write 
       )
     
+    return 0
 
 
 

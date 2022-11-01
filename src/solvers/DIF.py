@@ -73,6 +73,8 @@ class DIF(EncoderDecoder):
           bytes_to_write 
       )
 
+      return 0
+
   def decode(self, file_path, res_dir=''):
     """
     Description: This function decodes the file in file_path in the output file with name res_dir.

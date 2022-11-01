@@ -39,7 +39,7 @@ class RLE(EncoderDecoder):
             
             if self.data_type == 'string':
                 file_out.write(
-                    lines[i].encode('utf-8') + b'\n' +\
+                    lines[i].encode('utf-8') + \
                         self.byte(int(run_length), run_length_bytes)
                 )
             else:
@@ -63,28 +63,23 @@ class RLE(EncoderDecoder):
         
         byte = file_in.read(1)
         run_length_bytes = self.number(byte)
-        data = ''
+        data_str = ''
         if self.data_type == 'string':
             data_bytes = file_in.readline()
             data_bytes = data_bytes[:-1]
         else:
             data_bytes = file_in.read(self.byte_len)
 
-        i = 25
         while data_bytes:
             data = self.number(data_bytes) if self.data_type != 'string' else data_bytes.decode('utf-8')
             reps_byte = file_in.read(run_length_bytes)
             reps = self.number(reps_byte)
-            data += (str(data)+'\n')*reps
-            print(data, reps)
+            data_str += (str(data)+'\n')*reps
             file_out.write((str(data)+'\n')*reps)
             if self.data_type == 'string':
                 data_bytes = file_in.readline()
                 data_bytes = data_bytes[:-1]
             else:
                 data_bytes = file_in.read(self.byte_len)
-            i -= 1
-            if i == 0:
-                exit()
             
-        return data
+        return data_str
